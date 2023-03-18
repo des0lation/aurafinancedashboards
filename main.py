@@ -85,10 +85,20 @@ for bribe in bribed_amounts:
         bribe_pools.append(bribe['pool'])
         bribe_amounts.append(bribe['amountDollars'])
 
-bribe_bar = px.bar(x=bribe_pools, y=bribe_amounts, title="Bribes", text=bribe_amounts)
+# Sort the bribe and vote amounts in descending order
+bribe_sorted = sorted(zip(bribe_pools, bribe_amounts), key=lambda x: x[1], reverse=True)
+vote_sorted = sorted(zip(vote_pools, vote_amounts), key=lambda x: x[1], reverse=True)
+
+# Unzip the sorted values into separate lists
+bribe_pools_sorted, bribe_amounts_sorted = zip(*bribe_sorted)
+vote_pools_sorted, vote_amounts_sorted = zip(*vote_sorted)
+
+# Create the sorted bar charts
+bribe_bar = px.bar(x=bribe_pools_sorted, y=bribe_amounts_sorted, title="Bribes", text=bribe_amounts_sorted)
 bribe_bar.update_traces(texttemplate='%{text:.2s}', textposition='inside', marker_color='green')
-vote_bar = px.bar(x=vote_pools, y=vote_amounts, title="Bribed Votes", text=vote_amounts)
+vote_bar = px.bar(x=vote_pools_sorted, y=vote_amounts_sorted, title="Bribed Votes", text=vote_amounts_sorted)
 vote_bar.update_traces(texttemplate='%{text:.2s}', textposition='inside', marker_color='orange')
+
 
 
 
