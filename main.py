@@ -49,6 +49,62 @@ def get_emperdol():
     resp = requests.get("https://aura-balancer-apr.onrender.com/llama-airforce").json()['emissionsPerUsd']
     return resp
 
+#Revenue Daily Numbers
+headers = {
+    'authority': 'gateway.thegraph.com',
+    'accept': 'application/json, multipart/mixed',
+    'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
+    'content-type': 'application/json',
+    'origin': 'https://thegraph.com',
+    'referer': 'https://thegraph.com/',
+    'sec-ch-ua': '"Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
+}
+
+json_data = {
+    'query': 'query MyQuery {\n  vaultDailySnapshots(first: 1000) {\n    dailyTotalRevenueUSD\n    totalValueLockedUSD\n    dailySupplySideRevenueUSD\n    dailyProtocolSideRevenueUSD\n    timestamp\n  }\n}',
+    'operationName': 'MyQuery',
+}
+
+response = requests.post(
+    'https://gateway.thegraph.com/api/15a8b7b2f17ddd2f71d8fac4f91391f5/deployments/id/QmZsrUK6WXHFL82D7RMD5cuSjNrdU7dukg386Z4rWfwuVR',
+    headers=headers,
+    json=json_data,
+)
+
+#Daily Users Numbers
+headers = {
+    'authority': 'gateway.thegraph.com',
+    'accept': 'application/json, multipart/mixed',
+    'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
+    'content-type': 'application/json',
+    'origin': 'https://thegraph.com',
+    'referer': 'https://thegraph.com/',
+    'sec-ch-ua': '"Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
+}
+
+json_data = {
+    'query': 'query MyQuery {\n  usageMetricsDailySnapshots(first: 1000) {\n    dailyActiveUsers\n    timestamp\n  }\n}',
+    'operationName': 'MyQuery',
+}
+
+users = requests.post(
+    'https://gateway.thegraph.com/api/15a8b7b2f17ddd2f71d8fac4f91391f5/deployments/id/QmZsrUK6WXHFL82D7RMD5cuSjNrdU7dukg386Z4rWfwuVR',
+    headers=headers,
+    json=json_data,
+)
+
 
 headers = {
     'authority': 'api.llama.airforce',
@@ -135,7 +191,7 @@ for balEarned in df['Bal Released']:
     aura_revenue.append(balEarned*aura_share*bal_price)
     total_supply = total_supply + auraUnitsMinted
     vl_aura = vl_aura + 0.6 * auraUnitsMinted
-    emmission_per_vl_aura.append(52 * balEarned*aura_share*bal_price * 0.75/(vl_aura*aura_price))
+    emmission_per_vl_aura.append(52 * (balEarned*aura_share*bal_price * 0.75 + auraUnitsMinted * aura_price)/(vl_aura*aura_price) )
     inflations.append(100 * 52 * auraUnitsMinted/total_supply)
 
     aura_supply.append(total_supply)
