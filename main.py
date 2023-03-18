@@ -42,7 +42,7 @@ def get_aura_price():
 def get_aurabal_price():
     response = requests.get('https://api.coingecko.com/api/v3/simple/price?ids=aura-bal&vs_currencies=usd')
     aurabal_price = response.json()['aura-bal']['usd']
-    return aura_price
+    return aurabal_price
 
 bal_price = get_bal_price()
 aura_price = get_aura_price()
