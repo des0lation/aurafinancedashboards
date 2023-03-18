@@ -18,6 +18,8 @@ elif selection == "About":
 else:
     st.write("Please contact us at contact@example.com")
 
+col1,col2,col3 = st.columns(3)
+
 sheet_url = "https://docs.google.com/spreadsheets/d/19tHankEKBCKLa3WSBf-X4LmAh0to9HhLV7Q8UBavHqg/gviz/tq?tqx=out:csv"
 df = pd.read_csv(sheet_url)
 
@@ -180,6 +182,14 @@ aura_price = get_aura_price()
 aurabal_price = get_aurabal_price()
 emm_per_dollar = get_emperdol()
 
+with col1:
+    st.write("Aura Price is", aura_price)
+with col2:
+    st.write("Balancer Price is", bal_price)
+with col3:
+    st.write("Aura Bal price is", aurabal_price)
+
+
 st.write("Currently Emmissions per $ is", emm_per_dollar)
 
 inflations = []
@@ -230,11 +240,3 @@ with col2:
 
 
 
-col1,col2,col3 = st.columns(3)
-
-with col1:
-    st.write("Aura Price is", aura_price)
-with col2:
-    st.write("Balancer Price is", bal_price)
-with col3:
-    st.write("Aura Bal price is", aurabal_price)
