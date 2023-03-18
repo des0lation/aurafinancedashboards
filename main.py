@@ -71,10 +71,6 @@ bribed_votes = bribes['epoch']['bribed']
 vote_pools = []
 vote_amounts = []
 remove_pools = ['MetaStable USDC/wUSDR','p-MetaStable USDC/wUSDR']
-for pair in bribed_votes:
-    if 'MetaStable' in pair and pair not in remove_pools:
-        vote_pools.append(pair)
-        vote_amounts.append(bribed_votes[pair])
 
 
 bribed_amounts = bribes['epoch']['bribes']
@@ -84,14 +80,17 @@ for bribe in bribed_amounts:
     if 'MetaStable' in bribe['pool'] and bribe['pool'] not in remove_pools:
         bribe_pools.append(bribe['pool'])
         bribe_amounts.append(bribe['amountDollars'])
+        vote_amounts.append(bribed_votes[bribe['pool']])
 
 # Sort the bribe and vote amounts in descending order
 bribe_sorted = sorted(zip(bribe_pools, bribe_amounts), key=lambda x: x[1], reverse=True)
-vote_sorted = sorted(zip(vote_pools, vote_amounts), key=lambda x: x[1], reverse=True)
+vote_sorted = sorted(zip(bribe_pools, vote_amounts), key=lambda x: x[1], reverse=True)
 
 # Unzip the sorted values into separate lists
 bribe_pools_sorted, bribe_amounts_sorted = zip(*bribe_sorted)
 vote_pools_sorted, vote_amounts_sorted = zip(*vote_sorted)
+
+
 
 # Create the sorted bar charts
 bribe_bar = px.bar(x=bribe_pools_sorted, y=bribe_amounts_sorted, title="Bribes", text=bribe_amounts_sorted)
