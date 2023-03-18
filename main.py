@@ -3,6 +3,7 @@ import pandas as pd
 import datetime
 import plotly.express as px
 import requests,json
+from web3 import Web3, HTTPProvider
 
 st.set_page_config(page_title="Aura Dashboard", page_icon="bar_chart", layout="wide")
 st.title("Aura Dashboard")
@@ -23,11 +24,22 @@ col1,col2,col3 = st.columns(3)
 sheet_url = "https://docs.google.com/spreadsheets/d/19tHankEKBCKLa3WSBf-X4LmAh0to9HhLV7Q8UBavHqg/gviz/tq?tqx=out:csv"
 df = pd.read_csv(sheet_url)
 
-# Create a new list of values for aura supply
-total_supply = 58579243
-aura_supply = []
-aura_share = st.slider("Select projected AURA veBAL %share", min_value=0.0, max_value=100.0, value=50.0, step=0.1, format="%f")/100
-aura_revenue = []
+#Making Smart Contract calls to auraBAL and veBAl to get aura finance dominance from onchain
+infura_url = "https://mainnet.infura.io/v3/0159c1c270174247ab17c4839f766798"
+web3 = Web3(HTTPProvider(infura_url))
+contract_address = '0xC128a9954e6c874eA3d62ce62B468bA073093F25'
+contract_abi = json.loads('[{"name":"Deposit","inputs":[{"name":"provider","type":"address","indexed":true},{"name":"value","type":"uint256","indexed":false},{"name":"locktime","type":"uint256","indexed":true},{"name":"type","type":"int128","indexed":false},{"name":"ts","type":"uint256","indexed":false}],"anonymous":false,"type":"event"},{"name":"Withdraw","inputs":[{"name":"provider","type":"address","indexed":true},{"name":"value","type":"uint256","indexed":false},{"name":"ts","type":"uint256","indexed":false}],"anonymous":false,"type":"event"},{"name":"Supply","inputs":[{"name":"prevSupply","type":"uint256","indexed":false},{"name":"supply","type":"uint256","indexed":false}],"anonymous":false,"type":"event"},{"stateMutability":"nonpayable","type":"constructor","inputs":[{"name":"token_addr","type":"address"},{"name":"_name","type":"string"},{"name":"_symbol","type":"string"},{"name":"_authorizer_adaptor","type":"address"}],"outputs":[]},{"stateMutability":"view","type":"function","name":"token","inputs":[],"outputs":[{"name":"","type":"address"}]},{"stateMutability":"view","type":"function","name":"name","inputs":[],"outputs":[{"name":"","type":"string"}]},{"stateMutability":"view","type":"function","name":"symbol","inputs":[],"outputs":[{"name":"","type":"string"}]},{"stateMutability":"view","type":"function","name":"decimals","inputs":[],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"admin","inputs":[],"outputs":[{"name":"","type":"address"}]},{"stateMutability":"nonpayable","type":"function","name":"commit_smart_wallet_checker","inputs":[{"name":"addr","type":"address"}],"outputs":[]},{"stateMutability":"nonpayable","type":"function","name":"apply_smart_wallet_checker","inputs":[],"outputs":[]},{"stateMutability":"view","type":"function","name":"get_last_user_slope","inputs":[{"name":"addr","type":"address"}],"outputs":[{"name":"","type":"int128"}]},{"stateMutability":"view","type":"function","name":"user_point_history__ts","inputs":[{"name":"_addr","type":"address"},{"name":"_idx","type":"uint256"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"locked__end","inputs":[{"name":"_addr","type":"address"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"nonpayable","type":"function","name":"checkpoint","inputs":[],"outputs":[]},{"stateMutability":"nonpayable","type":"function","name":"deposit_for","inputs":[{"name":"_addr","type":"address"},{"name":"_value","type":"uint256"}],"outputs":[]},{"stateMutability":"nonpayable","type":"function","name":"create_lock","inputs":[{"name":"_value","type":"uint256"},{"name":"_unlock_time","type":"uint256"}],"outputs":[]},{"stateMutability":"nonpayable","type":"function","name":"increase_amount","inputs":[{"name":"_value","type":"uint256"}],"outputs":[]},{"stateMutability":"nonpayable","type":"function","name":"increase_unlock_time","inputs":[{"name":"_unlock_time","type":"uint256"}],"outputs":[]},{"stateMutability":"nonpayable","type":"function","name":"withdraw","inputs":[],"outputs":[]},{"stateMutability":"view","type":"function","name":"balanceOf","inputs":[{"name":"addr","type":"address"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"balanceOf","inputs":[{"name":"addr","type":"address"},{"name":"_t","type":"uint256"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"balanceOfAt","inputs":[{"name":"addr","type":"address"},{"name":"_block","type":"uint256"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"totalSupply","inputs":[],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"totalSupply","inputs":[{"name":"t","type":"uint256"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"totalSupplyAt","inputs":[{"name":"_block","type":"uint256"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"supply","inputs":[],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"locked","inputs":[{"name":"arg0","type":"address"}],"outputs":[{"name":"","type":"tuple","components":[{"name":"amount","type":"int128"},{"name":"end","type":"uint256"}]}]},{"stateMutability":"view","type":"function","name":"epoch","inputs":[],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"point_history","inputs":[{"name":"arg0","type":"uint256"}],"outputs":[{"name":"","type":"tuple","components":[{"name":"bias","type":"int128"},{"name":"slope","type":"int128"},{"name":"ts","type":"uint256"},{"name":"blk","type":"uint256"}]}]},{"stateMutability":"view","type":"function","name":"user_point_history","inputs":[{"name":"arg0","type":"address"},{"name":"arg1","type":"uint256"}],"outputs":[{"name":"","type":"tuple","components":[{"name":"bias","type":"int128"},{"name":"slope","type":"int128"},{"name":"ts","type":"uint256"},{"name":"blk","type":"uint256"}]}]},{"stateMutability":"view","type":"function","name":"user_point_epoch","inputs":[{"name":"arg0","type":"address"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"slope_changes","inputs":[{"name":"arg0","type":"uint256"}],"outputs":[{"name":"","type":"int128"}]},{"stateMutability":"view","type":"function","name":"future_smart_wallet_checker","inputs":[],"outputs":[{"name":"","type":"address"}]},{"stateMutability":"view","type":"function","name":"smart_wallet_checker","inputs":[],"outputs":[{"name":"","type":"address"}]}]')
+contract = web3.eth.contract(address=contract_address, abi=contract_abi)
+result = contract.functions.totalSupply().call()
+contract_address_2  = '0x616e8BfA43F920657B3497DBf40D6b1A02D4608d'
+contract_abi_2 = json.loads('[{"inputs":[{"internalType":"string","name":"_nameArg","type":"string"},{"internalType":"string","name":"_symbolArg","type":"string"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_from","type":"address"},{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"burn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_to","type":"address"},{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"mint","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"operator","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_operator","type":"address"}],"name":"setOperator","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]')
+contract2 = web3.eth.contract(address=contract_address_2, abi=contract_abi_2)
+result2 = contract2.functions.totalSupply().call()
+st.write("Total veBAL is",result/10**18)
+st.write("Aura Finance owned veBAL is",result2/10**18)
+st.write("Aura Finance dominane is", 100 * result2/result )
+
+#Getting Asset Prices
 @st.cache_data()
 def get_bal_price():
     response = requests.get('https://api.coingecko.com/api/v3/simple/price?ids=balancer&vs_currencies=usd')
@@ -50,6 +62,29 @@ def get_aurabal_price():
 def get_emperdol():
     resp = requests.get("https://aura-balancer-apr.onrender.com/llama-airforce").json()['emissionsPerUsd']
     return resp
+
+bal_price = get_bal_price()
+aura_price = get_aura_price()
+aurabal_price = get_aurabal_price()
+emm_per_dollar = get_emperdol()
+
+with col1:
+    st.write("Aura Price is", aura_price)
+with col2:
+    st.write("Balancer Price is", bal_price)
+with col3:
+    st.write("Aura Bal price is", aurabal_price)
+
+
+st.write("Currently Emmissions per $ is", emm_per_dollar)
+
+
+# Create a new list of values for aura supply
+total_supply = 58579243
+aura_supply = []
+default_value = 100 * result2/result
+aura_share = st.slider("Select projected AURA veBAL %share", min_value=0.0, max_value=100.0, value=default_value, step=0.1, format="%f")/100
+aura_revenue = []
 
 #Revenue Daily Numbers
 headers = {
@@ -169,6 +204,7 @@ vote_bar.update_traces(texttemplate='%{text:.2s}', textposition='inside', marker
 
 
 
+
 col1, col2 = st.columns(2)
 with col1:
     st.plotly_chart(vote_bar)
@@ -176,32 +212,23 @@ with col1:
 with col2:
     st.plotly_chart(bribe_bar)
 
-
-bal_price = get_bal_price()
-aura_price = get_aura_price()
-aurabal_price = get_aurabal_price()
-emm_per_dollar = get_emperdol()
-
-with col1:
-    st.write("Aura Price is", aura_price)
-with col2:
-    st.write("Balancer Price is", bal_price)
-with col3:
-    st.write("Aura Bal price is", aurabal_price)
-
-
-st.write("Currently Emmissions per $ is", emm_per_dollar)
+votes_per_dollar = sum(vote_amounts_sorted)/sum(bribe_amounts_sorted)
 
 inflations = []
 vl_aura = 13000000
 emmission_per_vl_aura = []
+
+st.write("These 6 pools have an average vote per dollar of", votes_per_dollar/26)
+st.write("vlAURA has a vote per dollar of",(26*result2/10**18)/(vl_aura*aura_price))
+
+
 
 for balEarned in df['Bal Released']:
     auraUnitsMinted = aura_share * (((500 - (total_supply - 50000000) / 100000) * 2.5 + 700) / 500) * balEarned
     aura_revenue.append(balEarned*aura_share*bal_price)
     total_supply = total_supply + auraUnitsMinted
     vl_aura = vl_aura + 0.6 * auraUnitsMinted
-    emmission_per_vl_aura.append(52 * (balEarned*aura_share*bal_price * 0.75 + auraUnitsMinted * aura_price)/(vl_aura*aura_price) )
+    emmission_per_vl_aura.append(52 * (balEarned*aura_share*bal_price * 0.75 + 0.75 * auraUnitsMinted * aura_price)/(vl_aura*aura_price) )
     inflations.append(100 * 52 * auraUnitsMinted/total_supply)
 
     aura_supply.append(total_supply)
