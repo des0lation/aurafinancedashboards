@@ -44,6 +44,62 @@ def get_aurabal_price():
     aurabal_price = response.json()['aura-bal']['usd']
     return aurabal_price
 
+headers = {
+    'authority': 'api.llama.airforce',
+    'accept': 'application/json',
+    'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
+    'content-type': 'application/json',
+    'origin': 'https://llama.airforce',
+    'referer': 'https://llama.airforce/',
+    'sec-ch-ua': '"Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
+}
+
+json_data = {
+    'platform': 'hh',
+    'protocol': 'aura-bal',
+}
+
+bribes = requests.post('https://api.llama.airforce//bribes', headers=headers, json=json_data).json()
+
+bribed_votes = bribes['epoch']['bribed']
+vote_pools = []
+vote_amounts = []
+remove_pools = ['MetaStable USDC/wUSDR']
+for pair in bribed_votes:
+    if 'MetaStable' in pair and pair not in remove_pools:
+        vote_pools.append(pair)
+        vote_amounts.append(bribed_votes[pair])
+
+
+bribed_amounts = bribes['epoch']['bribes']
+bribe_pools = []
+bribe_amounts = []
+for bribe in bribed_amounts:
+    if 'MetaStable' in bribe['pool'] and bribe['pool'] not in remove_pools:
+        bribe_pools.append(bribe['pool'])
+        bribe_amounts.append(bribe['amountDollars'])
+
+bribe_bar = px.bar(x=bribe_pools, y=bribe_amounts, title="Bribes", text=bribe_amounts)
+bribe_bar.update_traces(texttemplate='%{text:.2s}', textposition='inside', marker_color='green')
+vote_bar = px.bar(x=vote_pools, y=vote_amounts, title="Bribed Votes", text=vote_amounts)
+vote_bar.update_traces(texttemplate='%{text:.2s}', textposition='inside', marker_color='orange')
+
+
+
+col1, col2 = st.columns(2)
+with col1:
+    st.plotly_chart(vote_bar)
+
+with col2:
+    st.plotly_chart(bribe_bar)
+
+
 bal_price = get_bal_price()
 aura_price = get_aura_price()
 aurabal_price = get_aurabal_price()
