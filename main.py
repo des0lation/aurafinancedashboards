@@ -44,6 +44,12 @@ def get_aurabal_price():
     aurabal_price = response.json()['aura-bal']['usd']
     return aurabal_price
 
+@st.cache_data()
+def get_emperdol():
+    resp = requests.get("https://aura-balancer-apr.onrender.com/llama-airforce").json()['emissionsPerUsd']
+    return resp
+
+
 headers = {
     'authority': 'api.llama.airforce',
     'accept': 'application/json',
@@ -116,21 +122,36 @@ with col2:
 bal_price = get_bal_price()
 aura_price = get_aura_price()
 aurabal_price = get_aurabal_price()
+emm_per_dollar = get_emperdol()
+
+st.write("Currently Emmissions per $ is", emm_per_dollar)
+
+inflations = []
+vl_aura = 13000000
+emmission_per_vl_aura = []
 
 for balEarned in df['Bal Released']:
     auraUnitsMinted = aura_share * (((500 - (total_supply - 50000000) / 100000) * 2.5 + 700) / 500) * balEarned
     aura_revenue.append(balEarned*aura_share*bal_price)
     total_supply = total_supply + auraUnitsMinted
+    vl_aura = vl_aura + 0.6 * auraUnitsMinted
+    emmission_per_vl_aura.append(52 * balEarned*aura_share*bal_price * 0.75/(vl_aura*aura_price))
+    inflations.append(100 * 52 * auraUnitsMinted/total_supply)
+
     aura_supply.append(total_supply)
 
 # Add the new columns to the DataFrame
 df['Aura Share'] = aura_share
 df['Aura Supply'] = aura_supply
 df['Aura Revenue'] = aura_revenue
+df['Aura Inflation'] = inflations
+df['vlAURA Emissions'] = emmission_per_vl_aura
 
 # Create the Plotly figure objects
 fig_supply = px.scatter(df, x="Weeks", y="Supply", title="Balancer vs Aura Supply")
 aura_trace = px.scatter(df, x='Weeks', y='Aura Supply')
+inflation_line = px.line(df, x= 'Weeks', y = 'Aura Inflation',title = "Aura Weekly Inflation Annualised")
+emission_line = px.line(df, x= 'Weeks', y = 'vlAURA Emissions',title = "$Emissions per $vlAURA Annualised")
 aura_trace.update_traces(marker=dict(color='#FF6EC7'))
 fig_supply.add_trace(aura_trace.data[0])
 fig_supply.update_layout(xaxis_tickangle=45)
@@ -146,8 +167,12 @@ col1, col2 = st.columns(2)
 # Display the plots in your Streamlit app
 with col1:
     st.plotly_chart(fig_supply_json)
+    st.plotly_chart(inflation_line)
 with col2:
     st.plotly_chart(fig_revenue_json)
+    st.plotly_chart(emission_line)
+
+
 
 col1,col2,col3 = st.columns(3)
 
