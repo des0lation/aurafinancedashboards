@@ -70,7 +70,7 @@ bribes = requests.post('https://api.llama.airforce//bribes', headers=headers, js
 bribed_votes = bribes['epoch']['bribed']
 vote_pools = []
 vote_amounts = []
-remove_pools = ['MetaStable USDC/wUSDR']
+remove_pools = ['MetaStable USDC/wUSDR','p-MetaStable USDC/wUSDR']
 for pair in bribed_votes:
     if 'MetaStable' in pair and pair not in remove_pools:
         vote_pools.append(pair)
