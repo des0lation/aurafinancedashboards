@@ -164,7 +164,8 @@ def get_bribes():
         'protocol': 'aura-bal',
     }
 
-    return bribes = requests.post('https://api.llama.airforce//bribes', headers=headers, json=json_data).json()
+    bribes = requests.post('https://api.llama.airforce//bribes', headers=headers, json=json_data).json()
+    return bribes
 
 bribes = get_bribes()
 
