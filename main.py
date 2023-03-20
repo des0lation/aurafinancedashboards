@@ -12,12 +12,6 @@ options = ["Home", "About", "Contact"]
 selection = st.sidebar.selectbox("Select an option", options)
 
 # Display content based on the user's selection
-if selection == "Home":
-    st.write("Welcome to the Home page!")
-elif selection == "About":
-    st.write("This is the About page.")
-else:
-    st.write("Please contact us at contact@example.com")
 
 col1, col2, col3 = st.columns(3)
 
