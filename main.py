@@ -82,7 +82,7 @@ if 'default_value' not in st.session_state:
     st.session_state['default_value'] = 100 * result2 / result
 else:
     st.session_state.default_value = st.session_state.aura_share
-st.session_state['aura_share'] = st.slider("Select projected AURA veBAL %share", min_value=0.0, max_value=100.0,value=st.session_state.default_value,step=0.1, format="%f")
+st.session_state['aura_share'] = st.slider("Select projected AURA veBAL %share", min_value=0.0, max_value=100.0,value=100*st.session_state.default_value,step=0.1, format="%f")
 aura_revenue = []
 
 # Revenue Daily Numbers
