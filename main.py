@@ -79,7 +79,7 @@ st.write("Currently Emmissions per $ is", emm_per_dollar)
 total_supply = 58579243
 aura_supply = []
 default_value = 100 * result2 / result
-aura_share = st.slider("Select projected AURA veBAL %share", min_value=0.0, max_value=100.0,step=0.1, format="%f") / 100
+st.session_state['st.session_state.aura_share'] = st.slider("Select projected AURA veBAL %share", min_value=0.0, max_value=100.0,value = default_value,step=0.1, format="%f") / 100
 aura_revenue = []
 
 # Revenue Daily Numbers
@@ -216,17 +216,17 @@ st.write("These 6 pools have an average vote per dollar of", votes_per_dollar / 
 st.write("vlAURA has a vote per dollar of", (26 * result2 / 10 ** 18) / (vl_aura * aura_price))
 
 for balEarned in df['Bal Released']:
-    auraUnitsMinted = aura_share * (((500 - (total_supply - 50000000) / 100000) * 2.5 + 700) / 500) * balEarned
-    aura_revenue.append(balEarned * aura_share * bal_price)
+    auraUnitsMinted = st.session_state.aura_share * (((500 - (total_supply - 50000000) / 100000) * 2.5 + 700) / 500) * balEarned
+    aura_revenue.append(balEarned * st.session_state.aura_share * bal_price)
     total_supply = total_supply + auraUnitsMinted
     vl_aura = vl_aura + 0.6 * auraUnitsMinted
-    emmission_per_vl_aura.append(52 * (balEarned * aura_share * 0.75) / vl_aura)
+    emmission_per_vl_aura.append(52 * (balEarned * st.session_state.aura_share * 0.75) / vl_aura)
     inflations.append(100 * 52 * auraUnitsMinted / total_supply)
 
     aura_supply.append(total_supply)
 
 # Add the new columns to the DataFrame
-df['Aura Share'] = aura_share
+df['Aura Share'] = st.session_state.aura_share
 df['Aura Supply'] = aura_supply
 df['Aura Revenue'] = aura_revenue
 df['Aura Inflation'] = inflations
