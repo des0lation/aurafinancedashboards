@@ -88,8 +88,7 @@ st.write("Currently Emmissions per $ is", emm_per_dollar)
 total_supply = 58579243
 aura_supply = []
 default_value = 100 * result2 / result
-aura_share = st.slider("Select projected AURA veBAL %share", min_value=0.0, max_value=100.0, value=default_value,
-                       step=0.1, format="%f") / 100
+aura_share = st.slider("Select projected AURA veBAL %share", min_value=0.0, max_value=100.0,step=0.1, format="%f") / 100
 aura_revenue = []
 
 # Revenue Daily Numbers
