@@ -78,10 +78,10 @@ st.write("Currently Emmissions per $ is", emm_per_dollar)
 # Create a new list of values for aura supply
 total_supply = 58579243
 aura_supply = []
-with st.form("Select your Predicted Aura Share"):
+aura_slider = st.slider("Select projected AURA veBAL %share", min_value=0.0, max_value=100.0,value=default_value,step=0.1, format="%f")
+with aura_slider:
     default_value = 100 * result2 / result
-    st.session_state['aura_share'] = st.slider("Select projected AURA veBAL %share", min_value=0.0, max_value=100.0,value=default_value,step=0.1, format="%f") / 100
-    st.form_submit_button("Submit")
+    st.session_state['aura_share'] = st.slider("Select projected AURA veBAL %share", min_value=0.0, max_value=100.0,step=0.1, format="%f") / 100
 aura_revenue = []
 
 # Revenue Daily Numbers
