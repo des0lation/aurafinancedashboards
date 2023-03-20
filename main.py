@@ -246,7 +246,7 @@ df['vlAURA Emissions'] = emmission_per_vl_aura
 fig_supply = px.scatter(df, x="Weeks", y="Supply", title="Balancer vs Aura Supply")
 aura_trace = px.scatter(df, x='Weeks', y='Aura Supply')
 inflation_line = px.line(df, x='Weeks', y='Aura Inflation', title="Aura Weekly Inflation Annualised")
-emission_line = px.line(df, x='Weeks', y='vlAURA Emissions', title="$Emissions per $vlAURA Annualised")
+emission_line = px.line(df, x='Weeks', y='vlAURA Emissions', title="BAL per vlAURA Annualised")
 aura_trace.update_traces(marker=dict(color='#FF6EC7'))
 fig_supply.add_trace(aura_trace.data[0])
 fig_supply.update_layout(xaxis_tickangle=45)
