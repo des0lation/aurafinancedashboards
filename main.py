@@ -8,9 +8,6 @@ from web3 import Web3, HTTPProvider
 st.set_page_config(page_title="Aura Dashboard", page_icon="bar_chart", layout="wide")
 st.title("Aura Dashboard")
 
-options = ["Home", "About", "Contact"]
-selection = st.sidebar.selectbox("Select an option", options)
-
 # Display content based on the user's selection
 
 col1, col2, col3 = st.columns(3)
