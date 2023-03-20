@@ -141,30 +141,32 @@ users = requests.post(
     headers=headers,
     json=json_data,
 )
+@st.cache_data()
+def get_bribes():
+    headers = {
+        'authority': 'api.llama.airforce',
+        'accept': 'application/json',
+        'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
+        'content-type': 'application/json',
+        'origin': 'https://llama.airforce',
+        'referer': 'https://llama.airforce/',
+        'sec-ch-ua': '"Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-site',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
+    }
 
+    json_data = {
+        'platform': 'hh',
+        'protocol': 'aura-bal',
+    }
 
-headers = {
-    'authority': 'api.llama.airforce',
-    'accept': 'application/json',
-    'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
-    'content-type': 'application/json',
-    'origin': 'https://llama.airforce',
-    'referer': 'https://llama.airforce/',
-    'sec-ch-ua': '"Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"',
-    'sec-ch-ua-mobile': '?0',
-    'sec-ch-ua-platform': '"Windows"',
-    'sec-fetch-dest': 'empty',
-    'sec-fetch-mode': 'cors',
-    'sec-fetch-site': 'same-site',
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
-}
+    return bribes = requests.post('https://api.llama.airforce//bribes', headers=headers, json=json_data).json()
 
-json_data = {
-    'platform': 'hh',
-    'protocol': 'aura-bal',
-}
-
-bribes = requests.post('https://api.llama.airforce//bribes', headers=headers, json=json_data).json()
+bribes = get_bribes()
 
 bribed_votes = bribes['epoch']['bribed']
 vote_pools = []
