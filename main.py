@@ -81,7 +81,7 @@ aura_supply = []
 default_value = 100 * result2 / result
 with st.form("Select your Predicted Aura Share"):
     st.session_state['aura_share'] = st.slider("Select projected AURA veBAL %share", min_value=0.0, max_value=100.0,value=default_value,step=0.1, format="%f") / 100
-
+    st.form_submit_button("Submit")
 aura_revenue = []
 
 # Revenue Daily Numbers
