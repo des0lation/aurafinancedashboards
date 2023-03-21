@@ -116,6 +116,8 @@ for key in bal_pools_keys:
 
 
 pools_liquidity = []
+st.write(lst_pools.keys())
+st.write(liq_dict.keys())
 for key in lst_pools.keys():
     pools_liquidity.append(liq_dict[key])
 
