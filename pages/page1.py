@@ -25,6 +25,7 @@ pools = requests.post(
 
 lsts = ['stETH', 'wstETH', 'cbETH', 'staFiETH', 'ankrETH', 'rETH']
 st.write("We are finding all lst pools which contain", lsts)
+
 def getlstpools(lsts):
     json_data = {
         'query': 'query GaugeFactories {\r\n  gaugeFactories {\r\n    gauges {\r\n      symbol\r\n      id\r\n    }\r\n  }\r\n}',
@@ -44,7 +45,7 @@ def getlstpools(lsts):
             lst_pools[i['symbol']] = i['id']
     return lst_pools
 
-lst_pools = getlstpools()
+lst_pools = getlstpools(lsts)
 
 @st.cache_resource
 def getgaugeweight(id):
