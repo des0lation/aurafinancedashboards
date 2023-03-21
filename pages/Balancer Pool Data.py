@@ -65,10 +65,12 @@ def getgaugeweight(id):
     except:
         result = 0
     return result
-ve_bals = []
+
+
 
 @st.cache_data
 def get_all_weights():
+    ve_bals = []
     weights = []
     weight_values = []
     st.write(len(lst_pools.keys()))
@@ -78,7 +80,7 @@ def get_all_weights():
         weights.append(int(gauge_weight)/10**18)
         weight_values.append(aurabal_price/10**18*result*int(gauge_weight)/10**18)
         ve_bals.append(result*int(gauge_weight)/10**18)
-    return weights, weight_values
+    return weights, weight_values,vebals
 
 
 json_data = {
@@ -99,10 +101,12 @@ bal_pools = requests.post('https://api.thegraph.com/subgraphs/name/balancer-labs
 data = get_all_weights()
 weights_list = data[0]
 weight_values = data[1]
+vebals = data[2]
 
 founds_symbols = []
 bal_pools_keys = bal_pools.keys()
 pools_liquidity = []
+
 for key in bal_pools_keys:
     pools_x = bal_pools[key]
     for pool in pools_x:
