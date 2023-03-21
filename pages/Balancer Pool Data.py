@@ -111,7 +111,7 @@ for key in bal_pools_keys:
     for pool in pools_x:
         if str(pool['symbol']+'-gauge') in lst_pools.keys():
             founds_symbols.append(str(pool['symbol']+'-gauge'))
-            pools_liquidity.append(round(pool['totalLiquidity'],2))
+            pools_liquidity.append(round(float(pool['totalLiquidity']),2))
 
 #st.write(len(founds_symbols),len(lst_pools.keys()),len(lst_pools.values()),len(weights_list),len(ve_bals),len(weight_values),len(pools_liquidity))
 
