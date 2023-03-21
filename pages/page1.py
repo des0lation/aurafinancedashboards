@@ -63,6 +63,8 @@ weights = []
 def get_all_weights():
     for key in lst_pools.keys():
         weights.append(int(getgaugeweight(lst_pools[key]))/10**18)
+    return weights
+weights = get_all_weights()
 st.write(len(weights))
 df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights})
 st.dataframe(df)
