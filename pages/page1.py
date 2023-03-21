@@ -78,5 +78,5 @@ weights_list = data[0]
 weight_values = data[1]
 df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights_list, "veBAL value":weight_values})
 df = df.sort_values(by ="veBAl Weights", ascending=False)
-st.dataframe(df)
+st.dataframe(df, width=None)
 
