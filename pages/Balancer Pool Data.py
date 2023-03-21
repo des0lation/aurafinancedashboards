@@ -77,6 +77,7 @@ def get_all_weights():
     for key in lst_pools.keys():
         time.sleep(1)
         gauge_weight = getgaugeweight(lst_pools[key])
+        st.write(gauge_weight)
         weights.append(int(gauge_weight)/10**18)
         weight_values.append(aurabal_price/10**18*result*int(gauge_weight)/10**18)
         ve_bals.append(result/10**18*int(gauge_weight)/10**18)
