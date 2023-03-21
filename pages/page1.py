@@ -61,16 +61,15 @@ def getgaugeweight(id):
     except:
         result = 0
     return result
-weights = []
 @st.cache_data
 def get_all_weights():
+    weights = []
     for key in lst_pools.keys():
         time.sleep(1)
         weights.append(int(getgaugeweight(lst_pools[key]))/10**18)
     return weights
 
-
-weights = get_all_weights()
-df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights})
+weights_list = get_all_weights()
+df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights_list}).sort_values(by = 'veBal Weights', ascending=False)
 st.dataframe(df)
 
