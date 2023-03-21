@@ -101,6 +101,7 @@ bal_pools_keys = bal_pools.keys()
 st.write(bal_pools_keys)
 pools_liquidity = []
 for key in bal_pools_keys:
+    st.write(key)
     pools_x = bal_pools[key]
     st.write(len(pools_x))
     for pool in pools_x:
