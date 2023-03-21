@@ -6,6 +6,7 @@ import requests, json, time
 from web3 import Web3, HTTPProvider
 from main import get_bal_price,get_aurabal_price
 from main import result
+import statistics
 
 import requests
 
@@ -134,6 +135,6 @@ df = df.sort_values(by ="veBAL Weights", ascending=False)
 df["veBAL Weights"] = df["veBAL Weights"] * 100
 st.dataframe(df, width=None)
 
-st.write("From the Pools Collect, each % of veBAL is on average generating",sum(avgliqpervebal)/len(avgliqpervebal),"of liquidity")
+st.write("From the Pools Collect, each % of veBAL is on median generating",statistics.median(avgliqpervebal),"of liquidity")
 
 
