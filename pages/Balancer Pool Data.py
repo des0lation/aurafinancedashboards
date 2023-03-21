@@ -143,9 +143,9 @@ st.dataframe(df, width=None)
 
 justlstsavg = []
 for i,weight in enumerate(weights_list):
-    st.write(str(founds_symbols[i] - '-gauge'))
+    str(founds_symbols[i].replace('-gauge', ''))
     try:
-        if str(founds_symbols[i].replace('-gauge','') in bribe_pools_sorted:
+        if str(founds_symbols[i].replace('-gauge','')) in bribe_pools_sorted:
             justlstsavg.append(pools_liquidity[i]/(100*weight))
     except:
         continue
