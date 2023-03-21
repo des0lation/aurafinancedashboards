@@ -5,6 +5,7 @@ from web3 import Web3, HTTPProvider
 from main import get_bal_price,get_aurabal_price
 from main import result
 import statistics,requests, datetime,json, time
+import numpy as np
 
 st.set_page_config(page_title="Aura Dashboard", page_icon="bar_chart", layout="wide")
 json_data = {
