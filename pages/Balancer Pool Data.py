@@ -140,7 +140,7 @@ for i, weight in enumerate(weights_list):
         continue
 
 st.write(len(sorted_lst_pools.keys()),len(sorted_lst_pools.values()),len(ve_bals),len(weight_values),len(pools_liquidity),len(liquidity_per_vebal))
-df = pd.DataFrame({"Pool": sorted_lst_pools.keys(), "Address": sorted_lst_pools.values(),"veBAL Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity,"Liquidity per veBAL":liquidity_per_vebal})
+df = pd.DataFrame({"Pool": sorted_lst_pools.keys(), "Address": sorted_lst_pools.values(),"veBAL Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":sorted_liq_dic.values(),"Liquidity per veBAL":liquidity_per_vebal})
 df["veBAL Weights"] = df["veBAL Weights"] * 100
 st.dataframe(df, width=None)
 
