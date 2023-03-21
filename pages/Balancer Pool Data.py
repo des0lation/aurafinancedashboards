@@ -112,6 +112,7 @@ for key in bal_pools_keys:
 st.write(len(pools_liquidity))
 st.write(founds_symbols)
 st.write(len(lst_pools.keys()))
+st.write(len(set(lst_pools.keys())))
 st.write(lst_pools.keys() - founds_symbols)
 
 df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity})
