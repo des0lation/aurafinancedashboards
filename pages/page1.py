@@ -34,9 +34,6 @@ def getlstpools():
         json=json_data,
     )
     lst_pools = {}
-    for i in pools.json()['data']['gaugeFactories'][1]['gauges']:
-        if any(item in i['symbol'] for item in lsts):
-            lst_pools[i['symbol']] = i['id']
     for i in pools.json()['data']['gaugeFactories'][0]['gauges']:
         if any(item in i['symbol'] for item in lsts):
             lst_pools[i['symbol']] = i['id']
