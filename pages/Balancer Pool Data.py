@@ -161,8 +161,10 @@ liquidity = [statistics.mean(justlstsavg) * i / 100 for i in veBAL_values]
 
 df = pd.DataFrame({'veBAL': veBAL_values, 'liquidity': liquidity})
 
-fig = px.scatter(df, x='veBAL', y='liquidity', labels={'veBAL': '% of veBAL', 'liquidity': 'Liquidity'})
+fig = px.line(df, x='veBAL', y='TVLy', labels={'veBAL': '% of veBAL', 'liquidity': 'Liquidity'})
 st.plotly_chart(fig)
+
+
 
 
 
