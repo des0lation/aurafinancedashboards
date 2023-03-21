@@ -54,5 +54,5 @@ def getgaugeweight(id):
     result = contract.functions.gauge_relative_weight(id).call()
     return result
 
-x = getgaugeweight(lst_pools[0])
+x = getgaugeweight(lst_pools["B-cbETH-wstETH-Stable-gauge"])
 st.write(x)
