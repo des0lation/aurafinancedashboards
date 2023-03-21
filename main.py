@@ -12,7 +12,7 @@ st.title("Aura Dashboard")
 col1, col2, col3 = st.columns(3)
 
 sheet_url = "https://docs.google.com/spreadsheets/d/19tHankEKBCKLa3WSBf-X4LmAh0to9HhLV7Q8UBavHqg/gviz/tq?tqx=out:csv"
-df = pd.read_csv(sheet_url)
+dfmain = pd.read_csv(sheet_url)
 
 # Making Smart Contract calls to auraBAL and veBAl to get aura finance dominance from onchain
 infura_url = "https://mainnet.infura.io/v3/0159c1c270174247ab17c4839f766798"
@@ -39,7 +39,7 @@ def getvlaura():
             'accountId': '',
             'hasAccount': False,
         },
-        'query': 'query AuraV1($accountId: String!, $hasAccount: Boolean!) {\n  ...Block\n  poolAccounts(where: {staked_gt: 0, account: $accountId}) @include(if: $hasAccount) {\n    id\n    __typename\n  }\n  auraLocker(id: "auraLocker") {\n    ...AllAuraLocker\n    accounts(where: {account: $accountId}) @include(if: $hasAccount) {\n      id\n      balance\n      balanceLocked\n      balanceNextUnlockIndex\n      delegate {\n        id\n        __typename\n      }\n      userLocks {\n        id\n        amount\n        unlockTime\n        __typename\n      }\n      userData {\n        id\n        token {\n          ...AllToken\n          __typename\n        }\n        rewards\n        rewardPerTokenPaid\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment Block on Query {\n  _meta {\n    block {\n      number\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment AllAuraLocker on AuraLocker {\n  id\n  address\n  lockedSupply\n  totalLocked: totalSupply\n  rewardData {\n    id\n    token {\n      ...AllToken\n      __typename\n    }\n    periodFinish\n    lastUpdateTime\n    rewardPerTokenStored\n    rewardRate\n    __typename\n  }\n  __typename\n}\n\nfragment AllToken on Token {\n  id\n  decimals\n  symbol\n  name\n  __typename\n}',
+        'query': 'query AuraV1($accountId: String!, $hasAccount: Boolean!) {\n  ...Block\n  poolAccounts(where: {staked_gt: 0, account: $accountId}) @include(if: $hasAccount) {\n    id\n    __typename\n  }\n  auraLocker(id: "auraLocker") {\n    ...AllAuraLocker\n    accounts(where: {account: $accountId}) @include(if: $hasAccount) {\n      id\n      balance\n      balanceLocked\n      balanceNextUnlockIndex\n      delegate {\n        id\n        __typename\n      }\n      userLocks {\n        id\n        amount\n        unlockTime\n        __typename\n      }\n      userData {\n        id\n        token {\n          ...AllToken\n          __typename\n        }\n        rewards\n        rewardPerTokenPaid\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment Block on Query {\n  _meta {\n    block {\n      number\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment AllAuraLocker on AuraLocker {\n  id\n  address\n  lockedSupply\n  totalLocked: totalSupply\n  rewardData {\n    id\n    token {\n      ...AllToken\n      __typename\n    }\n    periodfmaininish\n    lastUpdateTime\n    rewardPerTokenStored\n    rewardRate\n    __typename\n  }\n  __typename\n}\n\nfragment AllToken on Token {\n  id\n  decimals\n  symbol\n  name\n  __typename\n}',
     }
     headers = {
         'authority': 'graph.aura.finance',
@@ -246,7 +246,7 @@ emmission_per_vl_aura = []
 st.write("These 6 pools have an average vote per dollar of", votes_per_dollar / 26)
 st.write("vlAURA has a vote per dollar of", (26 * result2 / 10 ** 18) / (vl_aura * aura_price))
 
-for balEarned in df['Bal Released']:
+for balEarned in dfmain['Bal Released']:
     auraUnitsMinted = st.session_state.aura_share * (((500 - (total_supply - 50000000) / 100000) * 2.5 + 700) / 500) * balEarned
     aura_revenue.append(balEarned * st.session_state.aura_share * bal_price)
     total_supply = total_supply + auraUnitsMinted
@@ -257,22 +257,22 @@ for balEarned in df['Bal Released']:
     aura_supply.append(total_supply)
 
 # Add the new columns to the DataFrame
-df['Aura Share'] = st.session_state.aura_share
-df['Aura Supply'] = aura_supply
-df['Aura Revenue'] = aura_revenue
-df['Aura Inflation'] = inflations
-df['vlAURA Emissions'] = emmission_per_vl_aura
+dfmain['Aura Share'] = st.session_state.aura_share
+dfmain['Aura Supply'] = aura_supply
+dfmain['Aura Revenue'] = aura_revenue
+dfmain['Aura Inflation'] = inflations
+dfmain['vlAURA Emissions'] = emmission_per_vl_aura
 
 # Create the Plotly figure objects
-fig_supply = px.scatter(df, x="Weeks", y="Supply", title="Balancer vs Aura Supply")
-aura_trace = px.scatter(df, x='Weeks', y='Aura Supply')
-inflation_line = px.line(df, x='Weeks', y='Aura Inflation', title="Aura Weekly Inflation Annualised")
-emission_line = px.line(df, x='Weeks', y='vlAURA Emissions', title="BAL per vlAURA Annualised")
+fig_supply = px.scatter(dfmain, x="Weeks", y="Supply", title="Balancer vs Aura Supply")
+aura_trace = px.scatter(dfmain, x='Weeks', y='Aura Supply')
+inflation_line = px.line(dfmain, x='Weeks', y='Aura Inflation', title="Aura Weekly Inflation Annualised")
+emission_line = px.line(dfmain, x='Weeks', y='vlAURA Emissions', title="BAL per vlAURA Annualised")
 aura_trace.update_traces(marker=dict(color='#FF6EC7'))
 fig_supply.add_trace(aura_trace.data[0])
 fig_supply.update_layout(xaxis_tickangle=45)
 
-fig_revenue = px.bar(df, x='Weeks', y='Aura Revenue', title='Aura Finance Weekly Revenue')
+fig_revenue = px.bar(dfmain, x='Weeks', y='Aura Revenue', title='Aura Finance Weekly Revenue')
 
 # Convert the figure objects to JSON-compatible formats
 fig_supply_json = fig_supply.to_dict()

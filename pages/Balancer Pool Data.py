@@ -197,5 +197,16 @@ st.write('You invested:', investment, "netting you",vl_aura_amount,"vlAURA")
 st.write("This will mean you own",100*vl_aura_amount/(total_vl_aura+vl_aura_amount),"% of vlAURA, a veBAL voting power of",voting_power, "or",vebal_percentage,"%")
 st.write("This is projected to support",vebal_percentage * statistics.mean(justlstsavg),"dollars of liquidity, a tvl ratio of",tvl_ratio)
 
+liq_aura_earned = []
+running_total = 0
+for auraearned in aura_revenue:
+    running_total += auraearned * vebal_percentage/100
+    liq_aura_earned.append(running_total)
+
+weeks = maindf['Weeks']
+fig2 = px.line(x=weeks, y=liq_aura_earned, labels={'x': 'Weeks', 'y': 'Aura Earned by Liquidity Pool'})
+st.plotly_chart(fig2)
+
+
 
 
