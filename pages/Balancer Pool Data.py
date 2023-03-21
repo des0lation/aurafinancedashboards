@@ -106,6 +106,7 @@ for key in bal_pools_keys:
             pools_liquidity.append(pool['totalLiquidity'])
 
 st.write(len(pools_liquidity))
+st.write(len(lst_pools.keys()))
 
 df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity})
 df = df.sort_values(by ="veBAl Weights", ascending=False)
