@@ -79,7 +79,7 @@ def get_all_weights():
         gauge_weight = getgaugeweight(lst_pools[key])
         weights.append(int(gauge_weight)/10**18)
         weight_values.append(aurabal_price/10**18*result*int(gauge_weight)/10**18)
-        ve_bals.append(result*int(gauge_weight)/10**18)
+        ve_bals.append(result/10**18*int(gauge_weight)/10**18)
     return weights, weight_values,ve_bals
 
 
@@ -121,6 +121,7 @@ df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBA
 df = df.sort_values(by ="veBAL Weights", ascending=False)
 df['Liquidity per veBAL'] = df['veBAL']/df['veBAL Weights']
 df["veBAL Weights"] = df["veBAL Weights"] * 100
+
 st.dataframe(df, width=None)
 
 
