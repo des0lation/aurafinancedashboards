@@ -204,7 +204,7 @@ st.write("This is projected to support",vebal_percentage * statistics.mean(justl
 liq_aura_earned = []
 running_total = 0
 for auraearned in aura_revenue:
-    running_total += auraearned * vebal_percentage/100
+    running_total += auraearned * vebal_percentage
     liq_aura_earned.append(running_total)
 
 weeks = dfmain['Weeks']
