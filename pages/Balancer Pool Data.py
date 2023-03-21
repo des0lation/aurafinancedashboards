@@ -116,8 +116,8 @@ for key in bal_pools_keys:
 
 
 pools_liquidity = []
-st.write(sorted(lst_pools.keys()))
-st.write(sorted(liq_dict.keys()))
+#st.write(sorted(lst_pools.keys()))
+#st.write(sorted(liq_dict.keys()))
 
 if "B-wstETH-STABLE-C-gauge" in lst_pools.keys():
     del lst_pools["B-wstETH-STABLE-C-gauge"]
