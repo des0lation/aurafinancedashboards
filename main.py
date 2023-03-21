@@ -32,7 +32,6 @@ st.write("Aura Finance owned veBAL is", result2 / 10 ** 18)
 st.write("Aura Finance dominane is", 100 * result2 / result)
 
 
-@st.cache_data()
 def getvlaura():
     json_data = {
         'operationName': 'AuraV1',
