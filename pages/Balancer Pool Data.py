@@ -101,7 +101,7 @@ bal_pools = requests.post('https://api.thegraph.com/subgraphs/name/balancer-labs
 data = get_all_weights()
 weights_list = data[0]
 weight_values = data[1]
-vebals = data[2]
+ve_bals = data[2]
 
 founds_symbols = []
 bal_pools_keys = bal_pools.keys()
