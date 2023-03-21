@@ -1,8 +1,4 @@
-import streamlit as st
-import pandas as pd
-import plotly.express as px
-from web3 import Web3, HTTPProvider
-from main import get_bal_price,get_aurabal_price,result, bribe_pools_sorted
+from main import *
 import statistics,requests, datetime,json, time
 import numpy as np
 
@@ -161,6 +157,9 @@ liquidity = [statistics.mean(justlstsavg) * i for i in veBAL_values]
 fig = px.line(x=veBAL_values, y=liquidity, labels={'x': '% of veBAL', 'y': 'Liquidity'})
 st.plotly_chart(fig)
 
+
+investment = st.slider('Select a value', min_value=0, max_value=10, step=1)
+st.write('You invested:', investment, "netting you",m,"vlAURA")
 
 
 
