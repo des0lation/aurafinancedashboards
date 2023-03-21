@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import datetime
 import plotly.express as px
-import requests, json
+import requests, json, time
 from web3 import Web3, HTTPProvider
 
 
@@ -65,6 +65,7 @@ weights = []
 @st.cache_resource
 def get_all_weights():
     for key in lst_pools.keys():
+        time.sleep(1)
         weights.append(int(getgaugeweight(lst_pools[key]))/10**18)
     return weights
 
