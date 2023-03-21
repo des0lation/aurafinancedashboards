@@ -191,7 +191,7 @@ tvl = st.slider('Select a TVL', min_value=0, max_value=10000000, step=1000)
 vl_aura_amount = investment/aura_price
 voting_power = vl_aura_amount/(total_vl_aura+vl_aura_amount)*result2 / 10 ** 18
 vebal_percentage = 100*voting_power/(result / 10 ** 18)
-tvl_ratio = str(1 + ":" + tvl/(vebal_percentage * statistics.mean(justlstsavg)))
+tvl_ratio = str(1 + ":" + int(tvl)/(vebal_percentage * statistics.mean(justlstsavg)))
 st.write('You invested:', investment, "netting you",vl_aura_amount,"vlAURA")
 st.write("This will mean you own",100*vl_aura_amount/(total_vl_aura+vl_aura_amount),"% of vlAURA, a veBAL voting power of",voting_power, "or",vebal_percentage,"%")
 st.write("This is projected to support",vebal_percentage * statistics.mean(justlstsavg),"dollars of liquidity, a tvl ratio of",tvl_ratio)
