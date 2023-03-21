@@ -146,7 +146,7 @@ justlstsavg = []
 extracted_lst_pools = ['B-stETH-STABLE-gauge','B-rETH-STABLE-gauge','B-cbETH-wstETH-Stable-gauge','B-ankrETH-WETH-Stable-gauge','B-staFiETH-WETH-Stable-gauge']
 for i,weight in enumerate(weights_list):
     try:
-        if founds_symbols[i] in extracted_lst_pools:
+        if list(lst_pools.keys())[i] in extracted_lst_pools:
             justlstsavg.append(pools_liquidity[i]/(weight))
     except:
         continue
