@@ -5,7 +5,7 @@ import plotly.express as px
 import requests, json, time
 from web3 import Web3, HTTPProvider
 from main import get_bal_price,get_aurabal_price
-
+from main import result
 
 import requests
 
@@ -70,7 +70,7 @@ def get_all_weights():
     for key in lst_pools.keys():
         time.sleep(1)
         weights.append(int(getgaugeweight(lst_pools[key]))/10**18)
-        weight_values.append(aurabal_price*int(getgaugeweight(lst_pools[key]))/10**18)
+        weight_values.append(aurabal_price*result*int(getgaugeweight(lst_pools[key]))/10**18)
     return weights, weight_values
 
 data = get_all_weights()
