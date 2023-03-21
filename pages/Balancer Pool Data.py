@@ -1,6 +1,5 @@
 from main import *
 import statistics,requests, datetime,json, time
-from main import getvlaura
 
 st.set_page_config(page_title="Aura Dashboard", page_icon="bar_chart", layout="wide")
 json_data = {
