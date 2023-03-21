@@ -142,11 +142,12 @@ df["veBAL Weights"] = df["veBAL Weights"] * 100
 st.dataframe(df, width=None)
 
 justlstsavg = []
-st.write(bribe_pools_sorted)
+#('MetaStable rETH/WETH', 'MetaStable wstETH/WETH', 'MetaStable StaFi rETH/WETH', 'MetaStable rETH/WETH', 'MetaStable wstETH/cbETH', 'a-MetaStable wstETH/WETH', 'MetaStable WETH/ankrETH')
+extracted_lst_pools = []
 for i,weight in enumerate(weights_list):
-    st.write("MetaStable " + str(founds_symbols[i].replace('-gauge', '')))
+    st.write(founds_symbols[i])
     try:
-        if str("MetaStable " + founds_symbols[i].replace('-gauge','')) in bribe_pools_sorted:
+        if founds_symbols[i] in extracted_lst_pools:
             justlstsavg.append(pools_liquidity[i]/(100*weight))
     except:
         continue
