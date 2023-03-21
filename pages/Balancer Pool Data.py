@@ -186,8 +186,8 @@ liquidity = [statistics.mean(justlstsavg) * i for i in veBAL_values]
 fig = px.line(x=veBAL_values, y=liquidity, labels={'x': '% of veBAL', 'y': 'Liquidity'})
 st.plotly_chart(fig)
 
-investment = st.slider('Select an investment amount', min_value=0, max_value=10000000, step=1000)
-tvl = st.slider('Select a TVL', min_value=0, max_value=10000000, step=1000)
+investment = st.slider('Select an investment amount', min_value=1, max_value=10000000, step=1000)
+tvl = st.slider('Select a TVL', min_value=1, max_value=10000000, step=1000)
 vl_aura_amount = investment/aura_price
 voting_power = vl_aura_amount/(total_vl_aura+vl_aura_amount)*result2 / 10 ** 18
 vebal_percentage = 100*voting_power/(result / 10 ** 18)
