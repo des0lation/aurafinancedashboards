@@ -97,7 +97,6 @@ weights_list = data[0]
 weight_values = data[1]
 
 founds_symbols = []
-st.write(lst_pools.keys())
 bal_pools_keys = bal_pools.keys()
 pools_liquidity = []
 for key in bal_pools_keys:
@@ -109,10 +108,8 @@ for key in bal_pools_keys:
 
 
 
-st.write(len(pools_liquidity))
 st.write(founds_symbols)
-st.write(len(lst_pools.keys()))
-st.write(len(set(lst_pools.keys())))
+st.write(lst_pools.keys())
 st.write(lst_pools.keys() - founds_symbols)
 
 df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity})
