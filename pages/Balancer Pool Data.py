@@ -102,7 +102,7 @@ pools_liquidity = []
 for key in bal_pools_keys:
     pools_x = bal_pools[key]
     for pool in pools_x:
-        if pool['symbol']+'-gauge' in lst_pools.keys():
+        if str(pool['symbol']+'-gauge') in lst_pools.keys():
             pools_liquidity.append(pool['totalLiquidity'])
 
 df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity})
