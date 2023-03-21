@@ -51,8 +51,6 @@ def getlstpools(lsts):
 
 
 lst_pools = getlstpools(lsts)
-st.write(lst_pools.keys())
-st.write(len(lst_pools.keys()))
 
 @st.cache_resource
 def getgaugeweight(id):
