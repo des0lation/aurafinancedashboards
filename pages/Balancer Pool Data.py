@@ -113,6 +113,8 @@ for key in bal_pools_keys:
             pools_liquidity.append(round(float(pool['totalLiquidity']),2))
 
 st.write(lst_pools.keys() - founds_symbols)
+st.write(sorted(lst_pools.keys()))
+st.write(sorted(founds_symbols))
 st.write(len(founds_symbols),len(lst_pools.keys()),len(lst_pools.values()),len(weights_list),len(ve_bals),len(weight_values),len(pools_liquidity))
 
 liquidity_per_vebal = []
