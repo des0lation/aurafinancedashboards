@@ -50,6 +50,7 @@ def getlstpools(lsts):
     return lst_pools
 
 lst_pools = getlstpools(lsts)
+del lst_pools["50wstETH-50bb-euler-USD-gauge"]
 
 @st.cache_resource
 def getgaugeweight(id):
@@ -107,10 +108,6 @@ for key in bal_pools_keys:
             pools_liquidity.append(pool['totalLiquidity'])
 
 
-
-st.write(sorted(founds_symbols))
-st.write(sorted(lst_pools.keys()))
-st.write(lst_pools.keys() - founds_symbols)
 
 df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity})
 df = df.sort_values(by ="veBAl Weights", ascending=False)
