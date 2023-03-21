@@ -125,7 +125,7 @@ for i in range(0,len(weights_list)):
 
 for i,weight in enumerate(weights_list):
     try:
-        liquidity_per_vebal += pools_liquidity[i]/weight
+        avgliqpervebal += pools_liquidity[i]/weight
     except:
         continue
 df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAL Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity,"Liquidity per veBAL":liquidity_per_vebal})
