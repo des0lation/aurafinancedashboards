@@ -119,7 +119,7 @@ avgliqpervebal = []
 sorted_liq_dic = {}
 sorted_lst_pools = {}
 
-for key in sorted(liq_dict):
+for key in sorted(lst_pools):
     sorted_liq_dic[key] = liq_dict[key]
 
 for key in sorted(lst_pools):
