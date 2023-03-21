@@ -7,7 +7,7 @@ from web3 import Web3, HTTPProvider
 from main import get_bal_price,get_aurabal_price
 from main import result
 import statistics
-
+import numppy as np
 import requests
 
 st.set_page_config(page_title="Aura Dashboard", page_icon="bar_chart", layout="wide")
@@ -136,5 +136,11 @@ df["veBAL Weights"] = df["veBAL Weights"] * 100
 st.dataframe(df, width=None)
 
 st.write("From the Pools Collect, each % of veBAL is on median generating",statistics.median(avgliqpervebal),"of liquidity")
+veBAL_values = np.arange(0, 100, 0.1)
+liquidity = 950980.0763568768 * veBAL_values / 100
 
 
+veBAL_values = list(range(0, 101))
+liquidity = [950980.0763568768 * i / 100 for i in veBAL_values]
+fig = px.line(x=veBAL_values, y=liquidity, labels={'x': '% of veBAL', 'y': 'Liquidity'})
+st.plotly_chart(fig)
