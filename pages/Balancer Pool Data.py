@@ -207,7 +207,7 @@ for auraearned in aura_revenue:
     running_total += auraearned * vebal_percentage/100
     liq_aura_earned.append(running_total)
 
-weeks = maindf['Weeks']
+weeks = dfmain['Weeks']
 fig2 = px.line(x=weeks, y=liq_aura_earned, labels={'x': 'Weeks', 'y': 'Aura Earned by Liquidity Pool'})
 st.plotly_chart(fig2)
 
