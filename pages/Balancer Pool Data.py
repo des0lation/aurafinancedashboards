@@ -104,6 +104,8 @@ founds_symbols = []
 bal_pools_keys = bal_pools.keys()
 pools_liquidity = []
 
+if "50wstETH-50bb-euler-USD-gauge" in lst_pools.keys():
+    del lst_pools["50wstETH-50bb-euler-USD-gauge"]
 
 for key in bal_pools_keys:
     pools_x = bal_pools[key]
@@ -112,10 +114,6 @@ for key in bal_pools_keys:
             founds_symbols.append(str(pool['symbol']+'-gauge'))
             pools_liquidity.append(round(float(pool['totalLiquidity']),2))
 
-
-
-if "50wstETH-50bb-euler-USD-gauge" in lst_pools.keys():
-    del lst_pools["50wstETH-50bb-euler-USD-gauge"]
 
 #st.write(lst_pools.keys() - founds_symbols)
 #st.write(sorted(lst_pools.keys()))
