@@ -4,6 +4,7 @@ import datetime
 import plotly.express as px
 import requests, json, time
 from web3 import Web3, HTTPProvider
+from main import get_bal_price,get_aurabal_price
 
 
 import requests
@@ -21,7 +22,8 @@ pools = requests.post(
 
 #Here I am declaring all the LST POOLs
 
-
+bal_price = get_bal_price()
+aurabal_price = get_aurabal_price()
 lsts = ['stETH', 'wstETH', 'cbETH', 'staFiETH', 'ankrETH', 'rETH']
 st.write("We are finding all lst pools which contain")
 st.write(lsts)
@@ -64,13 +66,17 @@ def getgaugeweight(id):
 @st.cache_data
 def get_all_weights():
     weights = []
+    weight_values = []
     for key in lst_pools.keys():
         time.sleep(1)
         weights.append(int(getgaugeweight(lst_pools[key]))/10**18)
-    return weights
+        weight_values.append(aurabal_price*int(getgaugeweight(lst_pools[key]))/10**18)
+    return weights, weight_values
 
-weights_list = get_all_weights()
-df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights_list})
+data = get_all_weights()
+weights_list = data[0]
+weight_values = data[1]
+df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights_list, "veBAL value":weight_values})
 df = df.sort_values(by ="veBAl Weights", ascending=False)
 st.dataframe(df)
 
