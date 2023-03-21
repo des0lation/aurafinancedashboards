@@ -109,7 +109,7 @@ for key in bal_pools_keys:
             founds_symbols.append(str(pool['symbol']+'-gauge'))
             pools_liquidity.append(pool['totalLiquidity'])
 
-st.write(len(founds_symbols))
+st.write(len(founds_symbols),len(lst_pools.keys()),len(lst_pools.values()),len(weights_list),len(ve_bals),len(weight_values),len(pools_liquidity))
 
 
 df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity})
