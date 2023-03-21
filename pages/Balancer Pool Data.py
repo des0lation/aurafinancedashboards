@@ -157,7 +157,7 @@ st.write("So we are rougly generating $1 million of liquidity per % of veBAL we 
 st.write("Looking at just LST metastable pools",extracted_lst_pools,"we get an average of", statistics.mean(justlstsavg))
 
 veBAL_values = list(range(0, 101))
-liquidity = [statistics.mean(justlstsavg) * i / 100 for i in veBAL_values]
+liquidity = [statistics.mean(justlstsavg) * i for i in veBAL_values]
 fig = px.line( x=veBAL_values, y=liquidity, labels={'veBAL': '% of veBAL', 'liquidity': 'Liquidity'})
 st.plotly_chart(fig)
 
