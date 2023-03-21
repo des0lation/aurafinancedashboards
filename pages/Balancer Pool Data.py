@@ -118,7 +118,8 @@ avgliqpervebal = []
 
 sorted_liq_dic = {}
 sorted_lst_pools = {}
-
+if '50rETH-50bb-euler-USD-gauge' in lst_pools.keys():
+    del lst_pools['50rETH-50bb-euler-USD-gauge']
 for key in sorted(lst_pools):
     sorted_liq_dic[key] = liq_dict[key]
 
