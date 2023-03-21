@@ -50,6 +50,8 @@ def getlstpools(lsts):
     return lst_pools
 
 lst_pools = getlstpools(lsts)
+
+st.write(lst_pools.keys())
 del lst_pools["50wstETH-50bb-euler-USD-gauge"]
 
 @st.cache_resource
