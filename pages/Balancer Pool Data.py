@@ -67,7 +67,7 @@ def getgaugeweight(id):
 
 
 @st.cache_data
-def get_all_weights():
+def get_all_weights(lst_pools):
     ve_bals = []
     weights = []
     weight_values = []
@@ -97,14 +97,12 @@ json_data = {
 
 bal_pools = requests.post('https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-v2', json=json_data).json()['data']
 
-data = get_all_weights()
+data = get_all_weights(lst_pools)
 weights_list = data[0]
 weight_values = data[1]
 ve_bals = data[2]
 
-founds_symbols = []
 bal_pools_keys = bal_pools.keys()
-pools_liquidity = []
 
 liq_dict = {}
 for key in bal_pools_keys:
