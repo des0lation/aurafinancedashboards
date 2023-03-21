@@ -158,7 +158,7 @@ fig = px.line(x=veBAL_values, y=liquidity, labels={'x': '% of veBAL', 'y': 'Liqu
 st.plotly_chart(fig)
 
 
-investment = st.slider('Select a value', min_value=0, max_value=10, step=1)
+investment = st.slider('Select a value', min_value=0, max_value=10000000, step=1000)
 vl_aura_amount = investment/aura_price
 voting_power = vl_aura_amount/(total_vl_aura+vl_aura_amount)*result2 / 10 ** 18
 vebal_percentage = voting_power/(result / 10 ** 18)
