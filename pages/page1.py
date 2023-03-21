@@ -56,6 +56,6 @@ def getgaugeweight(id):
     return result
 weights = []
 for key in lst_pools.keys():
-    weights.append(int(getgaugeweight(lst_pools[key]))/10**9)
+    weights.append(int(getgaugeweight(lst_pools[key]))/10**18)
 
 st.write(weights)
