@@ -97,7 +97,7 @@ weights_list = data[0]
 weight_values = data[1]
 
 
-bal_pools_keys = bal_pools['data'].keys()
+bal_pools_keys = bal_pools.keys()
 pools_liquidity = []
 for key in bal_pools_keys:
     pools_x = bal_pools[key]
