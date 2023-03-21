@@ -62,7 +62,7 @@ def getgaugeweight(id):
         result = 0
     return result
 weights = []
-@st.cache_resource
+@st.cache_data
 def get_all_weights():
     for key in lst_pools.keys():
         time.sleep(1)
