@@ -114,12 +114,6 @@ for key in bal_pools_keys:
             founds_symbols.append(str(pool['symbol']+'-gauge'))
             pools_liquidity.append(round(float(pool['totalLiquidity']),2))
 
-
-#st.write(lst_pools.keys() - founds_symbols)
-#st.write(sorted(lst_pools.keys()))
-#st.write(sorted(founds_symbols))
-
-
 liquidity_per_vebal = []
 for i in range(0,len(weights_list)):
     try:
@@ -137,7 +131,6 @@ for i,weight in enumerate(weights_list):
 st.write(len(founds_symbols),len(lst_pools.keys()),len(lst_pools.values()),len(weights_list),len(ve_bals),len(weight_values),len(pools_liquidity))
 
 df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAL Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity,"Liquidity per veBAL":liquidity_per_vebal})
-df = df.sort_values(by ="veBAL Weights", ascending=False)
 df["veBAL Weights"] = df["veBAL Weights"] * 100
 st.dataframe(df, width=None)
 
