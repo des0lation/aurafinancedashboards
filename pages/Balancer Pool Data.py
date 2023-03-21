@@ -142,6 +142,7 @@ df["veBAL Weights"] = df["veBAL Weights"] * 100
 st.dataframe(df, width=None)
 
 justlstsavg = []
+st.write(bribe_pools_sorted)
 for i,weight in enumerate(weights_list):
     st.write(str(founds_symbols[i].replace('-gauge', '')))
     try:
