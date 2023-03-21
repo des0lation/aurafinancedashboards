@@ -22,7 +22,8 @@ pools = requests.post(
 #Here I am declaring all the LST POOLs
 
 
-lsts = st.multiselect("Selected LSTs",['stETH', 'wstETH', 'cbETH', 'staFiETH', 'ankrETH', 'rETH'])
+lsts = ['stETH', 'wstETH', 'cbETH', 'staFiETH', 'ankrETH', 'rETH']
+st.write(str(lsts))
 st.write("We are finding all lst pools which contain", lsts)
 
 @st.cache_resource
