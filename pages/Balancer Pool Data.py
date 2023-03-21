@@ -80,7 +80,7 @@ def get_all_weights():
         weights.append(int(gauge_weight)/10**18)
         weight_values.append(aurabal_price/10**18*result*int(gauge_weight)/10**18)
         ve_bals.append(result*int(gauge_weight)/10**18)
-    return weights, weight_values,vebals
+    return weights, weight_values,ve_bals
 
 
 json_data = {
