@@ -24,7 +24,7 @@ pools = requests.post(
 
 lsts = ['stETH', 'wstETH', 'cbETH', 'staFiETH', 'ankrETH', 'rETH']
 st.write("We are finding all lst pools which contain")
-st.write(*lsts,sep=" ")
+st.write(lsts)
 
 @st.cache_resource
 def getlstpools(lsts):
