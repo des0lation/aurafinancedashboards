@@ -154,10 +154,7 @@ st.write("From the Pools Collect, each % of veBAL is on median generating",stati
 st.write("So we are rougly generating $1 million of liquidity per % of veBAL we are owning which has a market value of",0.01 * aurabal_price* result/10**18)
 st.write("Looking at just LST metastable pools",extracted_lst_pools,"we get an average of", statistics.mean(justlstsavg))
 
-veBAL_values = list(range(0, 101))
-liquidity = [950980.0763568768 * i / 100 for i in veBAL_values]
-fig = px.line(x=veBAL_values, y=liquidity, labels={'x': '% of veBAL', 'y': 'Liquidity'})
-st.plotly_chart(fig)
+
 
 
 
