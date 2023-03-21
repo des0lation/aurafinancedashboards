@@ -20,12 +20,12 @@ pools = requests.post(
 )
 
 #Here I am declaring all the LST POOLs
-@st.cache_resource
 
 
 lsts = ['stETH', 'wstETH', 'cbETH', 'staFiETH', 'ankrETH', 'rETH']
 st.write("We are finding all lst pools which contain", lsts)
 
+@st.cache_resource
 def getlstpools(lsts):
     json_data = {
         'query': 'query GaugeFactories {\r\n  gaugeFactories {\r\n    gauges {\r\n      symbol\r\n      id\r\n    }\r\n  }\r\n}',
