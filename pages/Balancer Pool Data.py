@@ -49,7 +49,8 @@ def getlstpools(lsts):
 
 
 lst_pools = getlstpools(lsts)
-
+if "50wstETH-50bb-euler-USD-gauge" in lst_pools.keys():
+    del lst_pools["50wstETH-50bb-euler-USD-gauge"]
 @st.cache_resource
 def getgaugeweight(id):
     infura_url = "https://mainnet.infura.io/v3/0159c1c270174247ab17c4839f766798"
@@ -71,6 +72,8 @@ def get_all_weights():
     ve_bals = []
     weights = []
     weight_values = []
+    if "50wstETH-50bb-euler-USD-gauge" in lst_pools.keys():
+        del lst_pools["50wstETH-50bb-euler-USD-gauge"]
     for key in lst_pools.keys():
         time.sleep(1)
         gauge_weight = getgaugeweight(lst_pools[key])
@@ -104,8 +107,6 @@ founds_symbols = []
 bal_pools_keys = bal_pools.keys()
 pools_liquidity = []
 
-if "50wstETH-50bb-euler-USD-gauge" in lst_pools.keys():
-    del lst_pools["50wstETH-50bb-euler-USD-gauge"]
 
 for key in bal_pools_keys:
     pools_x = bal_pools[key]
