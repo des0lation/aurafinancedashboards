@@ -106,31 +106,40 @@ founds_symbols = []
 bal_pools_keys = bal_pools.keys()
 pools_liquidity = []
 
-
+liq_dict = {}
 for key in bal_pools_keys:
     pools_x = bal_pools[key]
     for pool in pools_x:
         if str(pool['symbol']+'-gauge') in lst_pools.keys():
-            founds_symbols.append(str(pool['symbol']+'-gauge'))
-            pools_liquidity.append(round(float(pool['totalLiquidity']),2))
+            liq_dict[str(pool['symbol']+'-gauge')] = round(float(pool['totalLiquidity']),2)
 
 liquidity_per_vebal = []
+avgliqpervebal = []
+
+sorted_liq_dic = {}
+sorted_lst_pools = {}
+
+for key in sorted(liq_dict):
+    sorted_liq_dic[key] = liq_dict[key]
+
+for key in sorted(lst_pools):
+    sorted_lst_pools[key] = lst_pools[key]
+
+pools_liquidity = list(liq_dict.values())
+
 for i in range(0,len(weights_list)):
     try:
         liquidity_per_vebal.append(round(float(pools_liquidity[i])/float(ve_bals[i]),2))
     except:
         liquidity_per_vebal.append(0)
 
-avgliqpervebal = []
-for i,weight in enumerate(weights_list):
+for i, weight in enumerate(weights_list):
     try:
-        avgliqpervebal.append(pools_liquidity[i]/(100*weight))
+        avgliqpervebal.append(pools_liquidity[i] / (100 * weight))
     except:
         continue
 
-st.write(len(founds_symbols),len(lst_pools.keys()),len(lst_pools.values()),len(weights_list),len(ve_bals),len(weight_values),len(pools_liquidity))
-
-df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAL Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity,"Liquidity per veBAL":liquidity_per_vebal})
+df = pd.DataFrame({"Pool": sorted_lst_pools.keys(), "Address": sorted_lst_pools.values(),"veBAL Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity,"Liquidity per veBAL":liquidity_per_vebal})
 df["veBAL Weights"] = df["veBAL Weights"] * 100
 st.dataframe(df, width=None)
 
