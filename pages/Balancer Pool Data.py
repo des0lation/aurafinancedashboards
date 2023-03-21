@@ -112,8 +112,8 @@ for key in bal_pools_keys:
 st.write(len(founds_symbols),len(lst_pools.keys()),len(lst_pools.values()),len(weights_list),len(ve_bals),len(weight_values),len(pools_liquidity))
 
 
-df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity})
-df = df.sort_values(by ="veBAl Weights", ascending=False)
+df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAL Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity})
+df = df.sort_values(by ="veBAL Weights", ascending=False)
 df['Liquidity per veBAL'] = df['veBAL']/df['veBAL Weights']
 df["veBAl Weights"] = df["veBAl Weights"] * 100
 st.dataframe(df, width=None)
