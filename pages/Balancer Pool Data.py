@@ -158,7 +158,7 @@ st.write("Looking at just LST metastable pools",extracted_lst_pools,"we get an a
 
 veBAL_values = list(range(0, 11))
 liquidity = [statistics.mean(justlstsavg) * i for i in veBAL_values]
-fig = px.line( x=veBAL_values, y=liquidity, labels={'veBAL': '% of veBAL', 'liquidity': 'Liquidity'})
+fig = px.line( x=veBAL_values, y=liquidity, labels={veBAL_values: '% of veBAL', liquidity: 'Liquidity'})
 st.plotly_chart(fig)
 
 
