@@ -111,14 +111,14 @@ for key in bal_pools_keys:
     for pool in pools_x:
         if str(pool['symbol']+'-gauge') in lst_pools.keys():
             founds_symbols.append(str(pool['symbol']+'-gauge'))
-            pools_liquidity.append(pool['totalLiquidity'])
+            pools_liquidity.append(round(pool['totalLiquidity'],2))
 
 #st.write(len(founds_symbols),len(lst_pools.keys()),len(lst_pools.values()),len(weights_list),len(ve_bals),len(weight_values),len(pools_liquidity))
 
 liquidity_per_vebal = []
 for i in range(0,len(weights_list)):
     try:
-        liquidity_per_vebal.append(float(pools_liquidity[i])/float(ve_bals[i]))
+        liquidity_per_vebal.append(round(float(pools_liquidity[i])/float(ve_bals[i]),2))
     except:
         liquidity_per_vebal.append(0)
 df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAL Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity,"Liquidity per veBAL":liquidity_per_vebal})
