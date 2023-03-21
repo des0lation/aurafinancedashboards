@@ -125,7 +125,7 @@ for key in sorted(liq_dict):
 for key in sorted(lst_pools):
     sorted_lst_pools[key] = lst_pools[key]
 
-pools_liquidity = list(liq_dict.values())
+pools_liquidity = list(sorted_liq_dict.values())
 
 for i in range(0,len(weights_list)):
     try:
