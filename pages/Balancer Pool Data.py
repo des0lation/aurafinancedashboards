@@ -64,6 +64,7 @@ def getgaugeweight(id):
     except:
         result = 0
     return result
+ve_bals = []
 @st.cache_data
 def get_all_weights():
     weights = []
@@ -72,13 +73,43 @@ def get_all_weights():
         time.sleep(1)
         weights.append(int(getgaugeweight(lst_pools[key]))/10**18)
         weight_values.append(aurabal_price/10**18*result*int(getgaugeweight(lst_pools[key]))/10**18)
+        ve_bals.append(result*int(getgaugeweight(lst_pools[key]))/10**18)
     return weights, weight_values
+
+
+json_data = {
+    'query': 'query AllPools($skip: Int, $first: Int, $orderBy: Pool_orderBy, $orderDirection: OrderDirection, $where: Pool_filter, $block: Block_height) {\n  pool0: pools(\n    first: 1000\n    orderBy: $orderBy\n    orderDirection: $orderDirection\n    where: $where\n    block: $block\n  ) {\n    ...SubgraphPool\n  }\n  pool1000: pools(\n    first: 1000\n    skip: 1000\n    orderBy: $orderBy\n    orderDirection: $orderDirection\n    where: $where\n    block: $block\n  ) {\n    ...SubgraphPool\n  }\n  pool2000: pools(\n    first: 1000\n    skip: 2000\n    orderBy: $orderBy\n    orderDirection: $orderDirection\n    where: $where\n    block: $block\n  ) {\n    ...SubgraphPool\n  }\n}\n\nfragment SubgraphPool on Pool {\n  id\n  address\n  poolType\n  poolTypeVersion\n  factory\n  strategyType\n  symbol\n  name\n  swapEnabled\n  swapFee\n  protocolYieldFeeCache\n  protocolSwapFeeCache\n  owner\n  totalWeight\n  totalSwapVolume\n  totalSwapFee\n  totalLiquidity\n  totalShares\n  tokens(first: 100, orderBy: index) {\n    ...SubgraphPoolToken\n  }\n  swapsCount\n  holdersCount\n  tokensList\n  amp\n  priceRateProviders(first: 100) {\n    ...SubgraphPriceRateProvider\n  }\n  expiryTime\n  unitSeconds\n  createTime\n  principalToken\n  baseToken\n  wrappedIndex\n  mainIndex\n  lowerTarget\n  upperTarget\n  sqrtAlpha\n  sqrtBeta\n  root3Alpha\n  isInRecoveryMode\n}\n\nfragment SubgraphPoolToken on PoolToken {\n  id\n  symbol\n  name\n  decimals\n  address\n  balance\n  managedBalance\n  weight\n  priceRate\n  isExemptFromYieldProtocolFee\n  token {\n    ...TokenTree\n  }\n}\n\nfragment TokenTree on Token {\n  latestUSDPrice\n  pool {\n    ...SubgraphSubPool\n    tokens(first: 100, orderBy: index) {\n      ...SubgraphSubPoolToken\n      token {\n        latestUSDPrice\n        pool {\n          ...SubgraphSubPool\n          tokens(first: 100, orderBy: index) {\n            ...SubgraphSubPoolToken\n            token {\n              latestUSDPrice\n              pool {\n                ...SubgraphSubPool\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\nfragment SubgraphSubPool on Pool {\n  id\n  totalShares\n  address\n  poolType\n  mainIndex\n}\n\nfragment SubgraphSubPoolToken on PoolToken {\n  address\n  balance\n  weight\n  priceRate\n  symbol\n  decimals\n  isExemptFromYieldProtocolFee\n}\n\nfragment SubgraphPriceRateProvider on PriceRateProvider {\n  address\n  token {\n    address\n  }\n}\n',
+    'variables': {
+        'orderBy': 'totalLiquidity',
+        'orderDirection': 'desc',
+        'where': {
+            'swapEnabled': True,
+            'totalShares_gt': 1e-12,
+        },
+    },
+    'operationName': 'AllPools',
+}
+
+bal_pools = requests.post('https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-v2', json=json_data).json()
+
 
 data = get_all_weights()
 weights_list = data[0]
 weight_values = data[1]
-df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights_list, "veBAL value":weight_values})
+
+
+bal_pools_keys = bal_pools['data'].keys()
+pools_liquidity = []
+for key in bal_pools_keys:
+    pools_x = bal_pools[key]
+    for pool in pools_x:
+        if pool['symbol'] in lst_pools.keys():
+            pools_liquidity.append(pool['totalLiquidity'])
+
+df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity})
 df = df.sort_values(by ="veBAl Weights", ascending=False)
+df['Liquidity per veBAL'] = df['veBAL']/df['veBAL Weights']
 df["veBAl Weights"] = df["veBAl Weights"] * 100
 st.dataframe(df, width=None)
+
 
