@@ -141,9 +141,17 @@ df = df.sort_values(by ="veBAL Weights", ascending=False)
 df["veBAL Weights"] = df["veBAL Weights"] * 100
 st.dataframe(df, width=None)
 
+justlstsavg = []
+for i,weight in enumerate(weights_list):
+    try:
+        if str(founds_symbols[i]-'-gauge') in bribe_pools_sorted:
+            justlstsavg.append(pools_liquidity[i]/(100*weight))
+    except:
+        continue
+
 st.write("From the Pools Collect, each % of veBAL is on median generating",statistics.median(avgliqpervebal),"of liquidity")
 st.write("So we are rougly generating $1 million of liquidity per % of veBAL we are owning which has a market value of",0.01 * aurabal_price* result/10**18)
-st.write("Looking at just",bribe_pools_sorted)
+st.write("Looking at just LST metastable pools", statistics.median(justlstsavg))
 
 veBAL_values = list(range(0, 101))
 liquidity = [950980.0763568768 * i / 100 for i in veBAL_values]
