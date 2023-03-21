@@ -57,8 +57,8 @@ def getvlaura():
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
     }
 
-    response = float(requests.post('https://graph.aura.finance/subgraphs/name/aura/aura-mainnet-v1',headers=headers,json=json_data).json()['data']['auraLocker']['lockedSupply'])/10**18
-    return response
+    vlaurabal = float(requests.post('https://graph.aura.finance/subgraphs/name/aura/aura-mainnet-v1',headers=headers,json=json_data).json()['data']['auraLocker']['lockedSupply'])/10**18
+    return vlaurabal
 
 # Getting Asset Prices
 @st.cache_data()
