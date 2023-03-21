@@ -71,7 +71,7 @@ def get_all_weights():
     for key in lst_pools.keys():
         time.sleep(1)
         weights.append(int(getgaugeweight(lst_pools[key]))/10**18)
-        weight_values.append(aurabal_price*result*int(getgaugeweight(lst_pools[key]))/10**18)
+        weight_values.append(aurabal_price/10**18*result*int(getgaugeweight(lst_pools[key]))/10**18)
     return weights, weight_values
 
 data = get_all_weights()
