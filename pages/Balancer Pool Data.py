@@ -1,3 +1,5 @@
+import string
+
 from main import *
 import statistics,requests, json, time
 
@@ -13,6 +15,7 @@ pools = requests.post(
     json=json_data,
 )
 
+@st.cache_data()
 def getvlaura():
     json_data = {
         'operationName': 'AuraV1',
@@ -162,7 +165,6 @@ for i, weight in enumerate(weights_list):
     except:
         continue
 
-#st.write(len(lst_pools.keys()),len(lst_pools.values()),len(ve_bals),len(weight_values),len(liq_dict.values()),len(liquidity_per_vebal))
 df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAL Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity,"Liquidity per veBAL":liquidity_per_vebal})
 df["veBAL Weights"] = df["veBAL Weights"] * 100
 st.dataframe(df, width=None)
