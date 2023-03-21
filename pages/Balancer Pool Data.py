@@ -90,8 +90,7 @@ json_data = {
     'operationName': 'AllPools',
 }
 
-bal_pools = requests.post('https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-v2', json=json_data).json()
-st.write(bal_pools)
+bal_pools = requests.post('https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-v2', json=json_data).json()['data']
 
 data = get_all_weights()
 weights_list = data[0]
