@@ -71,6 +71,6 @@ def get_all_weights():
 
 weights_list = get_all_weights()
 df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAl Weights":weights_list})
-df = df.sort_values(by ="veBAL Weights", ascending=False)
+df = df.sort_values(by ="veBAl Weights", ascending=False)
 st.dataframe(df)
 
