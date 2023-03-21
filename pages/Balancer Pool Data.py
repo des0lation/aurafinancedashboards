@@ -96,7 +96,7 @@ data = get_all_weights()
 weights_list = data[0]
 weight_values = data[1]
 
-
+st.write(lst_pools.keys())
 bal_pools_keys = bal_pools.keys()
 pools_liquidity = []
 for key in bal_pools_keys:
