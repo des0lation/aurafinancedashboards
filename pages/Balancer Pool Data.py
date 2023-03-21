@@ -14,6 +14,8 @@ pools = requests.post(
     'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-gauges',
     json=json_data,
 )
+sheet_url = "https://docs.google.com/spreadsheets/d/19tHankEKBCKLa3WSBf-X4LmAh0to9HhLV7Q8UBavHqg/gviz/tq?tqx=out:csv"
+dfmain = pd.read_csv(sheet_url)
 
 @st.cache_data()
 def getvlaura():
