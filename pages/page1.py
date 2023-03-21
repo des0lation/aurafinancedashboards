@@ -45,6 +45,7 @@ def getlstpools():
 lst_pools = getlstpools()
 st.write(lst_pools)
 
+@st.cache_resource
 def getgaugeweight(id):
     infura_url = "https://mainnet.infura.io/v3/0159c1c270174247ab17c4839f766798"
     web3 = Web3(HTTPProvider(infura_url))
@@ -55,7 +56,11 @@ def getgaugeweight(id):
     result = contract.functions.gauge_relative_weight(id).call()
     return result
 weights = []
-for key in lst_pools.keys():
-    weights.append(int(getgaugeweight(lst_pools[key]))/10**18)
+@st.cache_resource
+def get_all_weights():
+    for key in lst_pools.keys():
+        weights.append(int(getgaugeweight(lst_pools[key]))/10**18)
+
+df = pd.DataFrame("Pool":lst_pools.keys(), "Address": [lst_pools.values()],"veBAl Weights":weights)
 
 st.write(weights)
