@@ -2,8 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from web3 import Web3, HTTPProvider
-from main import get_bal_price,get_aurabal_price
-from main import result
+from main import get_bal_price,get_aurabal_price,result, bribe_pools_sorted
 import statistics,requests, datetime,json, time
 import numpy as np
 
@@ -144,8 +143,11 @@ st.dataframe(df, width=None)
 
 st.write("From the Pools Collect, each % of veBAL is on median generating",statistics.median(avgliqpervebal),"of liquidity")
 st.write("So we are rougly generating $1 million of liquidity per % of veBAL we are owning which has a market value of",0.01 * aurabal_price* result/10**18)
+st.write("Looking at just",bribe_pools_sorted)
 
 veBAL_values = list(range(0, 101))
 liquidity = [950980.0763568768 * i / 100 for i in veBAL_values]
 fig = px.line(x=veBAL_values, y=liquidity, labels={'x': '% of veBAL', 'y': 'Liquidity'})
 st.plotly_chart(fig)
+
+
