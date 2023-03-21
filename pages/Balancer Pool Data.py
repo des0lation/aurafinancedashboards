@@ -102,6 +102,7 @@ pools_liquidity = []
 for key in bal_pools_keys:
     pools_x = bal_pools[key]
     for pool in pools_x:
+        st.write(pool['symbol'])
         if pool['symbol'] in lst_pools.keys():
             pools_liquidity.append(pool['totalLiquidity'])
 
