@@ -73,7 +73,6 @@ def get_all_weights():
     ve_bals = []
     weights = []
     weight_values = []
-    st.write(len(lst_pools.keys()))
     for key in lst_pools.keys():
         time.sleep(1)
         gauge_weight = getgaugeweight(lst_pools[key])
@@ -114,7 +113,7 @@ for key in bal_pools_keys:
             founds_symbols.append(str(pool['symbol']+'-gauge'))
             pools_liquidity.append(pool['totalLiquidity'])
 
-st.write(len(founds_symbols),len(lst_pools.keys()),len(lst_pools.values()),len(weights_list),len(ve_bals),len(weight_values),len(pools_liquidity))
+#st.write(len(founds_symbols),len(lst_pools.keys()),len(lst_pools.values()),len(weights_list),len(ve_bals),len(weight_values),len(pools_liquidity))
 
 liquidity_per_vebal = []
 for i in range(0,len(weights_list)):
