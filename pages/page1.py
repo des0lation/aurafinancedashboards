@@ -43,7 +43,7 @@ def getlstpools():
     return lst_pools
 
 lst_pools = getlstpools()
-ST.write(lst_pools)
+st.write(lst_pools)
 
 def getgaugeweight(id):
     infura_url = "https://mainnet.infura.io/v3/0159c1c270174247ab17c4839f766798"
