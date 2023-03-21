@@ -9,6 +9,7 @@ from main import result
 
 import requests
 
+st.set_page_config(page_title="Aura Dashboard", page_icon="bar_chart", layout="wide")
 json_data = {
     'query': 'query GaugeFactories {\r\n  gaugeFactories {\r\n    gauges {\r\n      symbol\r\n      id\r\n    }\r\n  }\r\n}',
     'variables': {},
