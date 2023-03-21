@@ -49,8 +49,8 @@ def getlstpools(lsts):
             lst_pools[i['symbol']] = i['id']
     return lst_pools
 
-lst_pools = getlstpools(lsts)
 
+lst_pools = getlstpools(lsts)
 st.write(lst_pools.keys())
 st.write(len(lst_pools.keys()))
 
@@ -68,10 +68,12 @@ def getgaugeweight(id):
         result = 0
     return result
 ve_bals = []
+
 @st.cache_data
 def get_all_weights():
     weights = []
     weight_values = []
+    st.write(len(lst_pools.keys()))
     for key in lst_pools.keys():
         time.sleep(1)
         weights.append(int(getgaugeweight(lst_pools[key]))/10**18)
