@@ -144,7 +144,6 @@ st.dataframe(df, width=None)
 justlstsavg = []
 extracted_lst_pools = ['B-stETH-STABLE-gauge','B-rETH-STABLE-gauge','B-cbETH-wstETH-Stable-gauge','B-ankrETH-WETH-Stable-gauge','B-staFiETH-WETH-Stable-gauge']
 for i,weight in enumerate(weights_list):
-    st.write(founds_symbols[i])
     try:
         if founds_symbols[i] in extracted_lst_pools:
             justlstsavg.append(pools_liquidity[i]/(100*weight))
