@@ -33,6 +33,20 @@ st.write("Aura Finance owned veBAL is", result2 / 10 ** 18)
 st.write("Aura Finance dominane is", 100 * result2 / result)
 
 
+@st.cache_data
+def getvlaura():
+    json_data = {
+        'operationName': 'AuraV1',
+        'variables': {
+            'accountId': '',
+            'hasAccount': False,
+        },
+        'query': 'query AuraV1($accountId: String!, $hasAccount: Boolean!) {\n  ...Block\n  poolAccounts(where: {staked_gt: 0, account: $accountId}) @include(if: $hasAccount) {\n    id\n    __typename\n  }\n  auraLocker(id: "auraLocker") {\n    ...AllAuraLocker\n    accounts(where: {account: $accountId}) @include(if: $hasAccount) {\n      id\n      balance\n      balanceLocked\n      balanceNextUnlockIndex\n      delegate {\n        id\n        __typename\n      }\n      userLocks {\n        id\n        amount\n        unlockTime\n        __typename\n      }\n      userData {\n        id\n        token {\n          ...AllToken\n          __typename\n        }\n        rewards\n        rewardPerTokenPaid\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment Block on Query {\n  _meta {\n    block {\n      number\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment AllAuraLocker on AuraLocker {\n  id\n  address\n  lockedSupply\n  totalLocked: totalSupply\n  rewardData {\n    id\n    token {\n      ...AllToken\n      __typename\n    }\n    periodFinish\n    lastUpdateTime\n    rewardPerTokenStored\n    rewardRate\n    __typename\n  }\n  __typename\n}\n\nfragment AllToken on Token {\n  id\n  decimals\n  symbol\n  name\n  __typename\n}',
+    }
+
+    response = float(requests.post('https://graph.aura.finance/subgraphs/name/aura/aura-mainnet-v1',json=json_data)['data']['auraLocker']['lockedSupply'])/10**18
+    return response
+
 # Getting Asset Prices
 @st.cache_data()
 def get_bal_price():
@@ -65,6 +79,7 @@ bal_price = get_bal_price()
 aura_price = get_aura_price()
 aurabal_price = get_aurabal_price()
 emm_per_dollar = get_emperdol()
+total_vl_aura = getvlaura()
 
 with col1:
     st.write("Aura Price is", aura_price)
