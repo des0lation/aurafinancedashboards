@@ -206,7 +206,7 @@ aprs = []
 running_total = 0
 for auraearned in aura_revenue:
     running_total += auraearned * vebal_percentage/100
-    aprs.append(52*(auraearned * vebal_percentage/100)/supported_liquidity)
+    aprs.append(52*(aura_price*auraearned * vebal_percentage/100)/supported_liquidity)
     liq_aura_earned.append(running_total)
 
 weeks = dfmain['Weeks']
