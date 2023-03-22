@@ -199,7 +199,6 @@ vl_aura_amount = (investment + bribes*votes_per_dollar)/aura_price
 voting_power = vl_aura_amount/(total_vl_aura+vl_aura_amount)*result2 / 10 ** 18
 vebal_percentage = 100*voting_power/(result / 10 ** 18)
 supported_liquidity = st.slider("Supported Liquidity", min_value = 1, max_value = tvl,step = 100000 ,value = int((vebal_percentage * statistics.mean(justlstsavg))),format='%.2f')
-
 tvl_ratio = str("1" + ":" + str((int(tvl) -supported_liquidity) /supported_liquidity))
 st.write('You invested:', investment, "netting you",vl_aura_amount,"vlAURA")
 st.write("This will mean you own",100*vl_aura_amount/(total_vl_aura+vl_aura_amount),"% of vlAURA, a veBAL voting power of",voting_power, "or",vebal_percentage,"%")
@@ -208,9 +207,11 @@ st.write("This is projected to support",vebal_percentage * statistics.mean(justl
 liq_aura_earned = []
 aprs = []
 running_total = 0
+voting_power_loss = []
 for i,auraearned in enumerate(aura_revenue):
+    vl_aura_amount = vl_aura_amount + auraearned * vebal_percentage/100
+    voting_power = vl_aura_amount/(total_vl_aura+vl_aura_amount)*result2 / 10 ** 18
     vebal_percentage = 100 * voting_power / (result / 10 ** 18)
-    result = result + auraearned * vebal_percentage * auralockpercentage/100
     running_total += auraearned * vebal_percentage/100
     aprs.append(100*52*((aura_price*auraearned+float(dfmain['Bal Released'][i]) * bal_price) * vebal_percentage/100)/supported_liquidity)
     liq_aura_earned.append(running_total)
