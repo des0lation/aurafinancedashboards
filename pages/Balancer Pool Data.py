@@ -209,7 +209,7 @@ aprs = []
 running_total = 0
 voting_power_loss = []
 for i,auraearned in enumerate(aura_revenue):
-    vl_aura_amount = vl_aura_amount + auraearned * vebal_percentage/100
+    total_vl_aura = total_vl_aura + auraearned * auralockpercentage/100
     voting_power = vl_aura_amount/(total_vl_aura+vl_aura_amount)*result2 / 10 ** 18
     vebal_percentage = 100 * voting_power / (result / 10 ** 18)
     running_total += auraearned * vebal_percentage/100
