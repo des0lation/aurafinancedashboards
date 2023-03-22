@@ -191,10 +191,14 @@ fig = px.line(x=veBAL_values, y=liquidity, labels={'x': '% of veBAL', 'y': 'Liqu
 st.plotly_chart(fig)
 
 investment = st.slider('Select an investment amount', min_value=1, max_value=10000000,value = 1000000, step=1000,format='%.2f')
+st.empty()
 tvl = st.slider('Select a TVL', min_value=1, max_value=100000000,value = 100000000 ,step=100000,format='%.2f')
+st.empty()
 bribes = st.slider("Bribing?",min_value = 0 , max_value = 20000,step = 1000,format='%.2f')
 st.write("This would lead to a bribing expense of",bribes*52,"$ per year")
+st.empty()
 auralockpercentage = st.slider("How much of AURA minted each week is being deposited into vlAURA?",min_value = 0,max_value = 100,format='%.2f')
+st.empty()
 new_aura_investments = st.slider("How much AURA will be buy each week to combat vlAURA dilution",min_value = 0,max_value = 1000,format='%.2f')
 vl_aura_amount = (investment + bribes*votes_per_dollar)/aura_price
 voting_power = vl_aura_amount/(total_vl_aura+vl_aura_amount)*result2 / 10 ** 18
