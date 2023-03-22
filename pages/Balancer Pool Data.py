@@ -2,6 +2,7 @@ import string
 
 from main import *
 import statistics,requests, json, time
+from datetime import datetime
 
 st.set_page_config(page_title="Aura Dashboard", page_icon="bar_chart", layout="wide")
 json_data = {
@@ -223,7 +224,8 @@ for i,auraearned in enumerate(aura_revenue):
     liq_aura_earned.append(running_total)
 
 col1, col2 = st.columns(2)
-weeks = dfmain['Weeks']
+weeks = [datetime.strptime(f"2023-W{w}-1", "%Y-W%W-%w") for w in dfmain['Weeks']]
+
 with col1:
     fig2 = px.line(x=weeks, y=liq_aura_earned, labels={'x': 'Weeks', 'y': 'Aura Earned by Liquidity Pool'})
     fig2.update_layout(xaxis_tickangle = 30)
