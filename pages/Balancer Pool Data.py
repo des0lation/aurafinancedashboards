@@ -220,7 +220,7 @@ for i,auraearned in enumerate(aura_revenue):
     voting_power = vl_aura_amount/(total_vl_aura)* result2 / 10 ** 18
     vebal_percentage = 100 * voting_power / (result / 10 ** 18)
     running_total += auraearned * vebal_percentage/100
-    dilution = (auraearned * auralockpercentage/100)/total_vl_aura
+    dilution = (52*100*auraearned * auralockpercentage/100)/total_vl_aura
     st.write(dilution)
     aprs.append(100*52*((aura_price*auraearned+float(dfmain['Bal Released'][i]) * bal_price) * vebal_percentage/100)/supported_liquidity)
     liq_aura_earned.append(running_total)
