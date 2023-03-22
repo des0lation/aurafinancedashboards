@@ -215,6 +215,8 @@ aprs = []
 running_total = 0
 voting_power_loss = []
 for i,auraearned in enumerate(aura_revenue):
+    dilution = (auraearned * auralockpercentage/100)/total_vl_aura
+    st.write(dilution)
     total_vl_aura = total_vl_aura + auraearned * auralockpercentage/100
     vl_aura_amount = vl_aura_amount + new_aura_investments
     voting_power = vl_aura_amount/(total_vl_aura)* result2 / 10 ** 18
