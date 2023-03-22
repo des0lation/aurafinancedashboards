@@ -224,15 +224,15 @@ for i,auraearned in enumerate(aura_revenue):
     liq_aura_earned.append(running_total)
 
 col1, col2 = st.columns(2)
-weeks = [datetime.strptime(f"2023-W{w}-1", "%Y-W%W-%w") for w in dfmain['Weeks']]
+weeks = dfmain['Weeks']
 
 with col1:
     fig2 = px.line(x=weeks, y=liq_aura_earned, labels={'x': 'Weeks', 'y': 'Aura Earned by Liquidity Pool'})
-    fig2.update_layout(xaxis_tickangle = 30)
+    fig2.update_layout(xaxis_tickangle = 15)
     st.plotly_chart(fig2)
 with col2:
     fig3 = px.line(x=weeks, y=aprs, labels={'x': 'Weeks', 'y': 'APR'})
-    fig3.update_layout(xaxis_tickangle = 30)
+    fig3.update_layout(xaxis_tickangle = 15)
     st.plotly_chart(fig3)
 
 
