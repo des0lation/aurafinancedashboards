@@ -206,15 +206,17 @@ aprs = []
 running_total = 0
 for auraearned in aura_revenue:
     running_total += auraearned * vebal_percentage/100
-    aprs.append(52*(aura_price*auraearned * vebal_percentage/100)/supported_liquidity)
+    aprs.append(100*52*(aura_price*auraearned * vebal_percentage/100)/supported_liquidity)
     liq_aura_earned.append(running_total)
 
+col1, col2 = st.columns(2)
 weeks = dfmain['Weeks']
-fig2 = px.line(x=weeks, y=liq_aura_earned, labels={'x': 'Weeks', 'y': 'Aura Earned by Liquidity Pool'})
-st.plotly_chart(fig2)
-
-fig3 = px.line(x=weeks, y=aprs, labels={'x': 'Weeks', 'y': 'APR'})
-st.plotly_chart(fig3)
+with col1:
+    fig2 = px.line(x=weeks, y=liq_aura_earned, labels={'x': 'Weeks', 'y': 'Aura Earned by Liquidity Pool'})
+    st.plotly_chart(fig2)
+with col2
+    fig3 = px.line(x=weeks, y=aprs, labels={'x': 'Weeks', 'y': 'APR'})
+    st.plotly_chart(fig3)
 
 
 
