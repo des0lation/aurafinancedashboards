@@ -190,14 +190,15 @@ liquidity = [statistics.mean(justlstsavg) * i for i in veBAL_values]
 fig = px.line(x=veBAL_values, y=liquidity, labels={'x': '% of veBAL', 'y': 'Liquidity'})
 st.plotly_chart(fig)
 
-investment = st.slider('Select an investment amount', min_value=1, max_value=10000000,value = 1000000, step=1000)
-tvl = st.slider('Select a TVL', min_value=1, max_value=100000000,value = 100000000 ,step=100000)
-bribes = st.slider("Bribing?",min_value = 0 , max_value = 20000,step = 1000)
+investment = st.slider('Select an investment amount', min_value=1, max_value=10000000,value = 1000000, step=1000,format='%.2f')
+tvl = st.slider('Select a TVL', min_value=1, max_value=100000000,value = 100000000 ,step=100000,format='%.2f')
+bribes = st.slider("Bribing?",min_value = 0 , max_value = 20000,step = 1000,format='%.2f')
 st.write("This would lead to a bribing expense of",bribes*52,"$ per year")
 vl_aura_amount = (investment + bribes*votes_per_dollar)/aura_price
 voting_power = vl_aura_amount/(total_vl_aura+vl_aura_amount)*result2 / 10 ** 18
 vebal_percentage = 100*voting_power/(result / 10 ** 18)
-supported_liquidity = int((vebal_percentage * statistics.mean(justlstsavg)))
+supported_liquidity = st.slider("Supported Liquidity", min = 1, max = tvl,step = 100000 ,value = int((vebal_percentage * statistics.mean(justlstsavg))),format='%.2f')
+
 tvl_ratio = str("1" + ":" + str((int(tvl) -supported_liquidity) /supported_liquidity))
 st.write('You invested:', investment, "netting you",vl_aura_amount,"vlAURA")
 st.write("This will mean you own",100*vl_aura_amount/(total_vl_aura+vl_aura_amount),"% of vlAURA, a veBAL voting power of",voting_power, "or",vebal_percentage,"%")
