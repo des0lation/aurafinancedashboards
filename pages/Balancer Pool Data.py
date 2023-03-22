@@ -204,9 +204,9 @@ st.write("This is projected to support",vebal_percentage * statistics.mean(justl
 liq_aura_earned = []
 aprs = []
 running_total = 0
-for auraearned in aura_revenue:
+for i,auraearned in enumerate(aura_revenue):
     running_total += auraearned * vebal_percentage/100
-    aprs.append(100*52*(aura_price*auraearned * vebal_percentage/100)/supported_liquidity)
+    aprs.append(100*52*((aura_price*auraearned+float(dfmain['Bal Released'][i]) * bal_price) * vebal_percentage/100)/supported_liquidity)
     liq_aura_earned.append(running_total)
 
 col1, col2 = st.columns(2)
