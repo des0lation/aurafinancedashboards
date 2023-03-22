@@ -197,7 +197,7 @@ st.write("This would lead to a bribing expense of",bribes*52,"$ per year")
 vl_aura_amount = (investment + bribes*votes_per_dollar)/aura_price
 voting_power = vl_aura_amount/(total_vl_aura+vl_aura_amount)*result2 / 10 ** 18
 vebal_percentage = 100*voting_power/(result / 10 ** 18)
-supported_liquidity = st.slider("Supported Liquidity", min = 1, max = tvl,step = 100000 ,value = int((vebal_percentage * statistics.mean(justlstsavg))),format='%.2f')
+supported_liquidity = st.slider("Supported Liquidity", min_value = 1, max_value = tvl,step = 100000 ,value = int((vebal_percentage * statistics.mean(justlstsavg))),format='%.2f')
 
 tvl_ratio = str("1" + ":" + str((int(tvl) -supported_liquidity) /supported_liquidity))
 st.write('You invested:', investment, "netting you",vl_aura_amount,"vlAURA")
