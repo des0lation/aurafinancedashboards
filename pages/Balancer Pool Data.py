@@ -213,7 +213,7 @@ weeks = dfmain['Weeks']
 fig2 = px.line(x=weeks, y=liq_aura_earned, labels={'x': 'Weeks', 'y': 'Aura Earned by Liquidity Pool'})
 st.plotly_chart(fig2)
 
-fig3 = px.line(x=weeks, y=liq_aura_earned, labels={'x': 'Weeks', 'y': 'Aura Earned by Liquidity Pool'})
+fig3 = px.line(x=weeks, y=liq_aura_earned, labels={'x': 'Weeks', 'y': 'APR'})
 st.plotly_chart(fig2)
 
 
