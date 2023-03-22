@@ -224,11 +224,10 @@ for i,auraearned in enumerate(aura_revenue):
     liq_aura_earned.append(running_total)
 
 col1, col2 = st.columns(2)
-weeks = dfmain['Weeks']
 years = years = [pd.to_datetime(x, format="%Y/%m/%d").year for x in dfmain['Weeks']]
 
 with col1:
-    fig2 = px.line(x=weeks, y=liq_aura_earned, labels={'x': 'Weeks', 'y': 'Aura Earned by Liquidity Pool'})
+    fig2 = px.line(x=years, y=liq_aura_earned, labels={'x': 'Weeks', 'y': 'Aura Earned by Liquidity Pool'})
     fig2.update_layout(xaxis_tickangle = 60)
     st.plotly_chart(fig2)
 with col2:
