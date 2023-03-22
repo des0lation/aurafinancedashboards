@@ -199,7 +199,7 @@ st.write("This would lead to a bribing expense of",bribes*52,"$ per year")
 st.empty()
 auralockpercentage = st.slider("How much of AURA minted each week is being deposited into vlAURA?",min_value = 0,max_value = 100,format='%.2f')
 st.empty()
-new_aura_investments = st.slider("How much AURA will be buy each week to combat vlAURA dilution",min_value = 0,max_value = 1000,format='%.2f')
+new_aura_investments = st.slider("How much AURA will be buy each week to combat vlAURA dilution",min_value = 0,max_value = 10000,format='%.2f')
 vl_aura_amount = (investment + bribes*votes_per_dollar)/aura_price
 voting_power = vl_aura_amount/(total_vl_aura+vl_aura_amount)*result2 / 10 ** 18
 vebal_percentage = 100*voting_power/(result / 10 ** 18)
