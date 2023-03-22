@@ -202,13 +202,18 @@ st.write("This will mean you own",100*vl_aura_amount/(total_vl_aura+vl_aura_amou
 st.write("This is projected to support",vebal_percentage * statistics.mean(justlstsavg),"dollars of liquidity, a tvl ratio of",tvl_ratio)
 
 liq_aura_earned = []
+aprs = []
 running_total = 0
 for auraearned in aura_revenue:
     running_total += auraearned * vebal_percentage/100
+    aprs.append(52*(auraearned * vebal_percentage/100)/supported_liquidity)
     liq_aura_earned.append(running_total)
 
 weeks = dfmain['Weeks']
 fig2 = px.line(x=weeks, y=liq_aura_earned, labels={'x': 'Weeks', 'y': 'Aura Earned by Liquidity Pool'})
+st.plotly_chart(fig2)
+
+fig3 = px.line(x=weeks, y=liq_aura_earned, labels={'x': 'Weeks', 'y': 'Aura Earned by Liquidity Pool'})
 st.plotly_chart(fig2)
 
 
