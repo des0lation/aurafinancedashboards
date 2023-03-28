@@ -151,6 +151,8 @@ pools_liquidity = []
 if "B-wstETH-STABLE-C-gauge" in lst_pools.keys():
     del lst_pools["B-wstETH-STABLE-C-gauge"]
 
+if "50rETH-50bb-euler-USD-gauge" in lst_pools.keys():
+    del lst_pools["50rETH-50bb-euler-USD-gauge"]
 for key in lst_pools.keys():
     pools_liquidity.append(liq_dict[key])
 
