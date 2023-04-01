@@ -1,6 +1,7 @@
 import streamlit as st
 import statistics,requests, json, time, datetime
 import plotly.express as px
+from main import *
 
 def get_pool_history(pool,timestamp):
     json_data = {
