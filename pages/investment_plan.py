@@ -1,5 +1,6 @@
 import datetime
 from main import *
+from eth_utils import to_checksum_address
 
 def get_pool_history(pool,timestamp):
     json_data = {
@@ -37,7 +38,7 @@ pool_dict = {
 selected_option = st.selectbox('Select an option', list(pool_dict.keys()))
 
 if selected_option:
-    pool = Web3.toChecksumAddress(pool_dict[selected_option])
+    pool = to_checksum_address(pool_dict[selected_option])
     st.write(pool)
     timestamp = 1628875520
     pool_data = get_pool_history(pool, timestamp)
