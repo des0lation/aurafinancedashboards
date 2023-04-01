@@ -38,15 +38,7 @@ timestamp_list = []
 for pool in pool_data:
     liquidity_list.append(pool['liquidity'])
     timestamp_list.append(datetime.datetime.fromtimestamp(pool['timestamp']))
-
-data = {'timestamp': timestamp_list, 'liquidity': liquidity_list}
-
-# create a pandas DataFrame from the data dictionary
-df = pd.DataFrame(data)
-
-# set the timestamp column as the index of the DataFrame
-df.set_index('timestamp', inplace=True)
-
-# plot the DataFrame using Streamlit's line_chart function
-st.line_chart(df)
+fig2 = px.line(x=timestamp_list, y=liquidity_list, labels={'x': 'Date', 'y': 'stETH/WETH liquidity'})
+fig2.update_layout(xaxis_tickangle = 60)
+st.plotly_chart(fig2)
 
