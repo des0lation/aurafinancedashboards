@@ -41,7 +41,7 @@ for pool in pool_data:
     timestamp_list.append(datetime.datetime.fromtimestamp(pool['timestamp']))
     volume_list.append(pool['swapVolume'])
 
-fig1 = px.line(x=timestamp_list, y=volume_list, labels={'x': 'Date', 'y': 'stETH/WETH liquidity'})
+fig1 = px.line(x=timestamp_list, y=volume_list, labels={'x': 'Date', 'y': 'stETH/WETH Pool Volume'})
 fig1.update_layout(xaxis_tickangle=60)
 st.plotly_chart(fig1)
 fig2 = px.line(x=timestamp_list, y=liquidity_list, labels={'x': 'Date', 'y': 'stETH/WETH liquidity'})
