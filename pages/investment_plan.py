@@ -35,11 +35,14 @@ pool_data = get_pool_history(pool,timestamp)
 
 liquidity_list = []
 timestamp_list = []
-volume_list = []
-for pool in pool_data:
+volume_list = [pool_data[0]['swapVolume']]
+for x,pool in enumerate(pool_data):
     liquidity_list.append(pool['liquidity'])
     timestamp_list.append(datetime.datetime.fromtimestamp(pool['timestamp']))
-    volume_list.append(pool['swapVolume'])
+    try:
+        volume_list.append(float(pool_data[x+1]['swapVolume'])-float(pool_data[x]['swapVolume']))
+    except:
+        continue
 
 fig1 = px.line(x=timestamp_list, y=volume_list, labels={'x': 'Date', 'y': 'stETH/WETH Pool Volume'})
 fig1.update_layout(xaxis_tickangle=60)
