@@ -63,7 +63,6 @@ lst_pools = getlstpools(lsts)
 if "50wstETH-50bb-euler-USD-gauge" in lst_pools.keys():
     del lst_pools["50wstETH-50bb-euler-USD-gauge"]
 
-@st.cache_data
 def getgaugeweight(id):
     infura_url = "https://mainnet.infura.io/v3/0159c1c270174247ab17c4839f766798"
     web3 = Web3(HTTPProvider(infura_url))
