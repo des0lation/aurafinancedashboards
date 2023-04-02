@@ -1,6 +1,17 @@
 from main import *
 import statistics,requests, json, time
 
+total_supply = 58579243
+vl_aura = 13000000
+for balEarned in dfmain['Bal Released']:
+    auraUnitsMinted = st.session_state.aura_share * (((500 - (total_supply - 50000000) / 100000) * 2.5 + 700) / 500) * balEarned
+    auraMinted.append(auraUnitsMinted)
+    aura_revenue.append(balEarned * st.session_state.aura_share * bal_price)
+    total_supply = total_supply + auraUnitsMinted
+    vl_aura = vl_aura + 0.6 * auraUnitsMinted
+    emmission_per_vl_aura.append(52 * (0.75*balEarned * st.session_state.aura_share) / vl_aura)
+    inflations.append(100 * 52 * auraUnitsMinted / total_supply)
+    aura_supply.append(total_supply)
 
 infura_url = "https://mainnet.infura.io/v3/0159c1c270174247ab17c4839f766798"
 web3 = Web3(HTTPProvider(infura_url))

@@ -239,8 +239,8 @@ for balEarned in dfmain['Bal Released']:
     vl_aura = vl_aura + 0.6 * auraUnitsMinted
     emmission_per_vl_aura.append(52 * (0.75*balEarned * st.session_state.aura_share) / vl_aura)
     inflations.append(100 * 52 * auraUnitsMinted / total_supply)
-
     aura_supply.append(total_supply)
+
 
 # Add the new columns to the DataFrame
 dfmain['Aura Share'] = st.session_state.aura_share
