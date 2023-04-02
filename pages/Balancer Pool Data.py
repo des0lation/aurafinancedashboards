@@ -38,6 +38,8 @@ lsts = ['stETH', 'wstETH', 'cbETH', 'staFiETH', 'ankrETH', 'rETH','sfrxETH']
 st.write("We are finding all lst pools which contain")
 st.write(lsts)
 
+pools = ['']
+
 @st.cache_resource
 def getlstpools(lsts):
     json_data = {
@@ -76,7 +78,7 @@ def getgaugeweight(id):
         result = 0
     return result
 
-lst_pools['B-cbETH-wstETH-Stable-gauge'] = '0x9c6d47Ff73e0F5E51BE5FD53236e3F595C5793F2'
+lst_pools['B-cbETH-wstETH-Stable-gauge'] = '0x01a9502c11f411b494c62746d37e89d6f7078657'
 
 
 def get_all_weights(lst_pools):
