@@ -231,7 +231,6 @@ auraMinted = []
 
 st.write("These 6 pools have an average vote per dollar of", votes_per_dollar / 26)
 st.write("vlAURA has a vote per dollar of", (26 * auraveBAL / 10 ** 18) / (vl_aura * aura_price))
-st.session_state['auraMinted'] = []
 for balEarned in dfmain['Bal Released']:
     auraUnitsMinted = st.session_state.aura_share * (((500 - (total_supply - 50000000) / 100000) * 2.5 + 700) / 500) * balEarned
     auraMinted.append(auraUnitsMinted)

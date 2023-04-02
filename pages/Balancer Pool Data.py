@@ -225,7 +225,8 @@ dilutions = []
 auraDominance = 100 * auraveBAL / totalveBAL
 #aura_revenue.append(balEarned * st.session_state.aura_share * bal_price) this is the bal earned by AURA in main.py
 
-st.write(len(aura_revenue),len(auraMinted))
+from main import auraMinted
+
 for i,auraearned in enumerate(aura_revenue):
     total_vl_aura = total_vl_aura + auraearned * auralockpercentage/100
     vl_aura_amount = vl_aura_amount + new_aura_investments
