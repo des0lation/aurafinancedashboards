@@ -211,7 +211,7 @@ new_aura_investments = st.slider("How much AURA will be buy each week to combat 
 vl_aura_amount = bribes*votes_per_dollar+investment/aura_price
 voting_power = vl_aura_amount/(total_vl_aura+investment/aura_price)*auraveBAL / 10 ** 18 #total amount of auraBAL controlled by vlAURA stake
 vebal_percentage = 100*voting_power/(totalveBAL / 10 ** 18)
-supported_liquidity = st.slider("Supported Liquidity", min_value = 1, max_value = tvl,step = 100000 ,value = int((vebal_percentage * statistics.mean(justlstsavg))),format='%.2f')
+supported_liquidity = st.slider("Supported Liquidity", min_value = 1, max_value = tvl,step = 100000 ,value = 10000000,format='%.2f')
 tvl_ratio = str("1" + ":" + str((int(tvl) -supported_liquidity) /supported_liquidity))
 st.write('You invested:', investment, "netting you",vl_aura_amount,"vlAURA")
 st.write("This will mean you own",100*vl_aura_amount/(total_vl_aura+vl_aura_amount),"% of vlAURA, a veBAL voting power of",voting_power, "or",vebal_percentage,"%")
