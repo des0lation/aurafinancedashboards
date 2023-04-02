@@ -222,7 +222,7 @@ for balEarned in dfmain['Bal Released']:
     aura_revenue.append(balEarned * st.session_state.aura_share * bal_price)
     total_supply = total_supply + auraUnitsMinted
     vl_aura = vl_aura + 0.6 * auraUnitsMinted
-    emmission_per_vl_aura.append(52 * (balEarned * st.session_state.aura_share * 0.75) / vl_aura)
+    emmission_per_vl_aura.append(52 * (0.75*balEarned * st.session_state.aura_share) / vl_aura)
     inflations.append(100 * 52 * auraUnitsMinted / total_supply)
 
     aura_supply.append(total_supply)
