@@ -156,7 +156,7 @@ df["veBAL Weights"] = df["veBAL Weights"] * 100
 st.dataframe(df, width=None)
 
 justlstsavg = []
-extracted_lst_pools = ['B-stETH-STABLE-gauge','B-rETH-STABLE-gauge','B-ankrETH-WETH-Stable-gauge','B-staFiETH-WETH-Stable-gauge']
+extracted_lst_pools = ['B-stETH-STABLE-gauge','B-rETH-STABLE-gauge','B-ankrETH-WETH-Stable-gauge','B-staFiETH-WETH-Stable-gauge','wstETH-rETH-sfrxETH-BPT-gauge']
 for i,weight in enumerate(weights_list):
     try:
         if list(lst_pools.keys())[i] in extracted_lst_pools:
