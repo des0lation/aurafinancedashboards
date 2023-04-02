@@ -1,6 +1,8 @@
 from main import *
 import statistics,requests, json, time
 
+totalveBAL = gettotalvebal()
+auraveBAL = getaurabal()
 json_data = {
     'query': 'query GaugeFactories {\r\n  gaugeFactories {\r\n    gauges {\r\n      symbol\r\n      id\r\n    }\r\n  }\r\n}',
     'variables': {},
@@ -79,7 +81,7 @@ def getgaugeweight(id):
 lst_pools['B-cbETH-wstETH-Stable-gauge'] = '0x01a9502c11f411b494c62746d37e89d6f7078657'
 
 
-def get_all_weights(lst_pools,totalveBAL):
+def get_all_weights(lst_pools):
     ve_bals = []
     weights = []
     weight_values = []
