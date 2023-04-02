@@ -229,7 +229,7 @@ auraDominance = 100 * auraveBAL / totalveBAL
 for i in range(0,len(dfmain['Bal Released'])):
     total_vl_aura = total_vl_aura + auraMinted[i] * auralockpercentage/100
     vl_aura_amount = vl_aura_amount + new_aura_investments
-    voting_power = vl_aura_amount/total_vl_aura* totalveBAL / 10 ** 18 #vl Aura % held
+    voting_power = vl_aura_amount/total_vl_aura* auraDominance * totalveBAL / 10 ** 18 # How much
     vebal_percentage = 100 * voting_power / (totalveBAL / 10 ** 18)
     aura_earned_by_pool = auraMinted[i] * vl_aura_amount/total_vl_aura
     bal_earned_by_pool = (0.75 * float(dfmain['Bal Released'][i]) * bal_price) * vebal_percentage/100
