@@ -49,7 +49,7 @@ total_vl_aura = getvlaura()
 
 bal_price = get_bal_price()
 aurabal_price = get_aurabal_price()
-lsts = ['stETH', 'wstETH', 'cbETH', 'staFiETH', 'ankrETH', 'rETH','frxETH']
+lsts = ['stETH', 'wstETH', 'cbETH', 'staFiETH', 'ankrETH', 'rETH','sfrxETH']
 st.write("We are finding all lst pools which contain")
 st.write(lsts)
 
