@@ -235,7 +235,6 @@ for i in range(0,len(dfmain['Bal Released'])):
     bal_earned_by_pool = (0.75 * float(dfmain['Bal Released'][i]) * bal_price) * vebal_percentage/100
     dilutions.append((52*100*auraMinted[i] * auralockpercentage/100)/total_vl_aura)
     aprs.append(100*52*(aura_earned_by_pool * aura_price + bal_earned_by_pool * bal_price)/supported_liquidity)
-    running_total +=
     liq_aura_earned.append(running_total)
 
 weeks = dfmain['Weeks']
