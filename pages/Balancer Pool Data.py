@@ -1,5 +1,6 @@
 import streamlit
 
+import main
 from main import *
 import statistics,requests, json, time
 
@@ -224,6 +225,7 @@ running_total = 0
 voting_power_loss = []
 dilutions = []
 auraDominance = 100 * auraveBAL / totalveBAL
+auraMinted = main.auraMinted
 #aura_revenue.append(balEarned * st.session_state.aura_share * bal_price) this is the bal earned by AURA in main.py
 
 st.write(len(aura_revenue),len(auraMinted))
