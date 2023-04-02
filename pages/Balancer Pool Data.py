@@ -80,7 +80,7 @@ def getgaugeweight(id):
 lst_pools['B-cbETH-wstETH-Stable-gauge'] = '0x01a9502c11f411b494c62746d37e89d6f7078657'
 
 
-def get_all_weights(lst_pools):
+def get_all_weights(lst_pools,totalveBAL):
     ve_bals = []
     weights = []
     weight_values = []
