@@ -235,19 +235,13 @@ for i in range(0,len(dfmain['Bal Released'])):
     bal_earned_by_pool = (0.75 * float(dfmain['Bal Released'][i]) * bal_price) * vebal_percentage/100
     dilutions.append((52*100*auraMinted[i] * auralockpercentage/100)/total_vl_aura)
     aprs.append(100*52*(aura_earned_by_pool * aura_price + bal_earned_by_pool * bal_price)/supported_liquidity)
+    running_total +=
     liq_aura_earned.append(running_total)
 
-col1, col2 = st.columns(2)
 weeks = dfmain['Weeks']
-
-with col1:
-    fig2 = px.line(x=weeks, y=liq_aura_earned, labels={'x': 'Weeks', 'y': 'Aura Earned by Liquidity Pool'})
-    fig2.update_layout(xaxis_tickangle = 60)
-    st.plotly_chart(fig2)
-with col2:
-    fig3 = px.line(x=weeks, y=aprs, labels={'x': 'Weeks', 'y': 'APR'})
-    fig3.update_layout(xaxis_tickangle = 60)
-    st.plotly_chart(fig3)
+fig3 = px.line(x=weeks, y=aprs, labels={'x': 'Weeks', 'y': 'APR'})
+fig3.update_layout(xaxis_tickangle = 60)
+st.plotly_chart(fig3)
 
 fig4 = px.line(x=weeks, y=dilutions, labels={'x': 'Weeks', 'y': 'Annualised Dilution'})
 fig4.update_layout(xaxis_tickangle = 60)
