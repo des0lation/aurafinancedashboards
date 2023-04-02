@@ -30,9 +30,9 @@ def get_pool_history(pool,timestamp):
     return response['data']['poolSnapshots']
 
 pool_dict = {
-    'Balancer stETH Stable Pool':'0x32296969Ef14EB0c6d29669C550D4a0449130230',
-    'Balancer rETH Stable Pool':'0x1E19CF2D73a72Ef1332C882F20534B6519Be0276',
-    'Balancer cbETH-wstETH Stable Pool': '0x9c6d47Ff73e0F5E51BE5FD53236e3F595C5793F2'
+    'Balancer stETH Stable Pool':'0x32296969Ef14EB0c6d29669C550D4a0449130230000200000000000000000080',
+    'Balancer rETH Stable Pool':'0x1E19CF2D73a72Ef1332C882F20534B6519Be0276000200000000000000000080',
+    'Balancer cbETH-wstETH Stable Pool': '0x9c6d47Ff73e0F5E51BE5FD53236e3F595C5793F2000200000000000000000080'
 }
 
 selected_option = st.selectbox('Select an option', list(pool_dict.keys()))
