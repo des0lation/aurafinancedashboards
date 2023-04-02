@@ -1,6 +1,5 @@
 import datetime
 from main import *
-from eth_utils import to_checksum_address
 
 def get_pool_history(pool,timestamp):
     json_data = {
