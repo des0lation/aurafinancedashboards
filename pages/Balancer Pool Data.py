@@ -209,7 +209,7 @@ auralockpercentage = st.slider("How much of AURA minted each week is being depos
 st.empty()
 new_aura_investments = st.slider("How much AURA will be buy each week to combat vlAURA dilution",min_value = 0,max_value = 10000,format='%.2f')
 vl_aura_amount = bribes*votes_per_dollar+investment/aura_price
-voting_power = vl_aura_amount/(total_vl_aura+vl_aura_amount)*auraveBAL / 10 ** 18 #total amount of auraBAL controlled by vlAURA stake
+voting_power = vl_aura_amount/(total_vl_aura+investment/aura_price)*auraveBAL / 10 ** 18 #total amount of auraBAL controlled by vlAURA stake
 vebal_percentage = 100*voting_power/(totalveBAL / 10 ** 18)
 supported_liquidity = st.slider("Supported Liquidity", min_value = 1, max_value = tvl,step = 100000 ,value = int((vebal_percentage * statistics.mean(justlstsavg))),format='%.2f')
 tvl_ratio = str("1" + ":" + str((int(tvl) -supported_liquidity) /supported_liquidity))
@@ -223,17 +223,19 @@ running_total = 0
 voting_power_loss = []
 dilutions = []
 auraDominance = 100 * auraveBAL / totalveBAL
-#aura_revenue.append(balEarned * st.session_state.aura_share * bal_price) this is the bal earned by AURA in main.py
 
 
-for i,auraearned in enumerate(aura_revenue):
-    total_vl_aura = total_vl_aura + auraearned * auralockpercentage/100
+#We are using Aura Minted from Main which is the total Aura Minted for each Bal Earned by Aiura
+for i in range(0,len(dfmain['Bal Released'])):
+    total_vl_aura = total_vl_aura + auraMinted[i] * auralockpercentage/100
     vl_aura_amount = vl_aura_amount + new_aura_investments
     voting_power = vl_aura_amount/total_vl_aura* totalveBAL / 10 ** 18 #vl Aura % held
     vebal_percentage = 100 * voting_power / (totalveBAL / 10 ** 18)
-    running_total += auraearned * vebal_percentage/100
-    dilutions.append((52*100*auraearned * auralockpercentage/100)/total_vl_aura)
-    aprs.append(100*52*(vl_aura_amount/total_vl_aura*aura_price*auraMinted[i] + ((0.75 * float(dfmain['Bal Released'][i]) * bal_price) * vebal_percentage/100))/supported_liquidity)
+    running_total += auraMinted[i] * vebal_percentage/100
+    aura_earned_by_pool = auraMinted[i] * vl_aura_amount/total_vl_aura
+    bal_earned_by_pool = (0.75 * float(dfmain['Bal Released'][i]) * bal_price) * vebal_percentage/100
+    dilutions.append((52*100*auraMinted[i] * auralockpercentage/100)/total_vl_aura)
+    aprs.append(100*52*(aura_earned_by_pool * aura_price + bal_earned_by_pool * bal_price)/supported_liquidity)
     liq_aura_earned.append(running_total)
 
 col1, col2 = st.columns(2)
