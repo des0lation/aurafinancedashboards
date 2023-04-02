@@ -1,6 +1,6 @@
 from main import *
 import statistics,requests, json, time
-
+from main import auraMinted
 
 
 infura_url = "https://mainnet.infura.io/v3/0159c1c270174247ab17c4839f766798"
@@ -225,7 +225,6 @@ dilutions = []
 auraDominance = 100 * auraveBAL / totalveBAL
 #aura_revenue.append(balEarned * st.session_state.aura_share * bal_price) this is the bal earned by AURA in main.py
 
-from main import auraMinted
 
 for i,auraearned in enumerate(aura_revenue):
     total_vl_aura = total_vl_aura + auraearned * auralockpercentage/100
