@@ -1,5 +1,6 @@
 from main import *
 import statistics,requests, json, time
+from main import totalveBAL,auraveBAL
 
 json_data = {
     'query': 'query GaugeFactories {\r\n  gaugeFactories {\r\n    gauges {\r\n      symbol\r\n      id\r\n    }\r\n  }\r\n}',
