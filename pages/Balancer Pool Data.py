@@ -76,7 +76,7 @@ def getgaugeweight(id):
         result = 0
     return result
 
-
+lst_pools['B-cbETH-wstETH-Stable-gauge'] = '0x9c6d47Ff73e0F5E51BE5FD53236e3F595C5793F2'
 
 
 def get_all_weights(lst_pools):
