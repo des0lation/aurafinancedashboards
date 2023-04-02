@@ -3,6 +3,7 @@ import statistics,requests, json, time
 
 total_supply = 58579243
 vl_aura = 13000000
+auraMinted = []
 for balEarned in dfmain['Bal Released']:
     auraUnitsMinted = st.session_state.aura_share * (((500 - (total_supply - 50000000) / 100000) * 2.5 + 700) / 500) * balEarned
     auraMinted.append(auraUnitsMinted)
