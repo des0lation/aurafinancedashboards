@@ -220,17 +220,17 @@ aprs = []
 running_total = 0
 voting_power_loss = []
 dilutions = []
-
+auraDominance = 100 * auraveBAL / totalveBAL
 #aura_revenue.append(balEarned * st.session_state.aura_share * bal_price) this is the bal earned by AURA in main.py
 
 for i,auraearned in enumerate(aura_revenue):
     total_vl_aura = total_vl_aura + auraearned * auralockpercentage/100
     vl_aura_amount = vl_aura_amount + new_aura_investments
-    voting_power = vl_aura_amount/total_vl_aura* totalveBAL / 10 ** 18
+    voting_power = vl_aura_amount/total_vl_aura* totalveBAL / 10 ** 18 #vl Aura % held
     vebal_percentage = 100 * voting_power / (totalveBAL / 10 ** 18)
     running_total += auraearned * vebal_percentage/100
     dilutions.append((52*100*auraearned * auralockpercentage/100)/total_vl_aura)
-    aprs.append(100*52*((aura_price*auraMinted[i] +0.75 * float(dfmain['Bal Released'][i]) * bal_price) * vebal_percentage/100)/supported_liquidity)
+    aprs.append(100*52*((aura_price*auraMinted[i] +auraDominance * 0.75 * float(dfmain['Bal Released'][i]) * bal_price) * vebal_percentage/100)/supported_liquidity)
     liq_aura_earned.append(running_total)
 
 col1, col2 = st.columns(2)
