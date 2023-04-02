@@ -77,7 +77,6 @@ def getgaugeweight(id):
 
 
 
-@st.cache_data
 def get_all_weights(lst_pools):
     ve_bals = []
     weights = []
