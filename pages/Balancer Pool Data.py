@@ -38,8 +38,6 @@ lsts = ['stETH', 'wstETH', 'cbETH', 'staFiETH', 'ankrETH', 'rETH','sfrxETH']
 st.write("We are finding all lst pools which contain")
 st.write(lsts)
 
-pools = ['']
-
 @st.cache_resource
 def getlstpools(lsts):
     json_data = {
@@ -158,7 +156,7 @@ df["veBAL Weights"] = df["veBAL Weights"] * 100
 st.dataframe(df, width=None)
 
 justlstsavg = []
-extracted_lst_pools = ['B-stETH-STABLE-gauge','B-rETH-STABLE-gauge','B-ankrETH-WETH-Stable-gauge','B-staFiETH-WETH-Stable-gauge','wstETH-rETH-sfrxETH-BPT-gauge']
+extracted_lst_pools = ['B-stETH-STABLE-gauge','B-rETH-STABLE-gauge','B-ankrETH-WETH-Stable-gauge','B-staFiETH-WETH-Stable-gauge','wstETH-rETH-sfrxETH-BPT-gauge','B-cbETH-wstETH-Stable-gauge']
 for i,weight in enumerate(weights_list):
     try:
         if list(lst_pools.keys())[i] in extracted_lst_pools:
