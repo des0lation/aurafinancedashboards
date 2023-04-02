@@ -1,5 +1,6 @@
 from main import *
 import statistics,requests, json, time
+from main import auraMinted
 
 def gettotalvebal():
     infura_url = "https://mainnet.infura.io/v3/0159c1c270174247ab17c4839f766798"
