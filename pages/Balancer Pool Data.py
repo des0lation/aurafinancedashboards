@@ -71,10 +71,10 @@ def getgaugeweight(id):
     contract = web3.eth.contract(address=contract_address, abi=contract_abi)
     id = web3.toChecksumAddress(id)
     try:
-        result = contract.functions.gauge_relative_weight(id).call()
+        totalveBAL = contract.functions.gauge_relative_weight(id).call()
     except:
-        result = 0
-    return result
+        totalveBAL = 0
+    return totalveBAL
 
 lst_pools['B-cbETH-wstETH-Stable-gauge'] = '0x01a9502c11f411b494c62746d37e89d6f7078657'
 
@@ -89,8 +89,8 @@ def get_all_weights(lst_pools):
         time.sleep(1)
         gauge_weight = getgaugeweight(lst_pools[key])
         weights.append(int(gauge_weight)/10**18)
-        weight_values.append(round(aurabal_price/10**18*result*int(gauge_weight)/10**18,2))
-        ve_bals.append(result/10**18*int(gauge_weight)/10**18)
+        weight_values.append(round(aurabal_price/10**18*totalveBAL*int(gauge_weight)/10**18,2))
+        ve_bals.append(totalveBAL/10**18*int(gauge_weight)/10**18)
     return weights, weight_values,ve_bals
 
 
@@ -166,7 +166,7 @@ for i,weight in enumerate(weights_list):
 
 #st.write(pools_liquidity)
 #st.write("From the Pools Collect, each % of veBAL is on median generating",statistics.median(avgliqpervebal),"of liquidity")
-#st.write("So we are rougly generating $1 million of liquidity per % of veBAL we are owning which has a market value of",0.01 * aurabal_price* result/10**18)
+#st.write("So we are rougly generating $1 million of liquidity per % of veBAL we are owning which has a market value of",0.01 * aurabal_price* totalveBAL/10**18)
 st.write("Looking at just LST metastable pools",extracted_lst_pools,"we get an average of", statistics.mean(justlstsavg),"$ of liquidity per % of veBAL held by the pool")
 
 veBAL_values = list(range(0, 11))
@@ -186,8 +186,8 @@ auralockpercentage = st.slider("How much of AURA minted each week is being depos
 st.empty()
 new_aura_investments = st.slider("How much AURA will be buy each week to combat vlAURA dilution",min_value = 0,max_value = 10000,format='%.2f')
 vl_aura_amount = bribes*votes_per_dollar+investment/aura_price
-voting_power = vl_aura_amount/(total_vl_aura+vl_aura_amount)*result2 / 10 ** 18
-vebal_percentage = 100*voting_power/(result / 10 ** 18)
+voting_power = vl_aura_amount/(total_vl_aura+vl_aura_amount)*auraveBAL / 10 ** 18
+vebal_percentage = 100*voting_power/(totalveBAL / 10 ** 18)
 supported_liquidity = st.slider("Supported Liquidity", min_value = 1, max_value = tvl,step = 100000 ,value = int((vebal_percentage * statistics.mean(justlstsavg))),format='%.2f')
 tvl_ratio = str("1" + ":" + str((int(tvl) -supported_liquidity) /supported_liquidity))
 st.write('You invested:', investment, "netting you",vl_aura_amount,"vlAURA")
@@ -202,8 +202,8 @@ dilutions = []
 for i,auraearned in enumerate(aura_revenue):
     total_vl_aura = total_vl_aura + auraearned * auralockpercentage/100
     vl_aura_amount = vl_aura_amount + new_aura_investments
-    voting_power = vl_aura_amount/total_vl_aura* result / 10 ** 18
-    vebal_percentage = 100 * voting_power / (result / 10 ** 18)
+    voting_power = vl_aura_amount/total_vl_aura* totalveBAL / 10 ** 18
+    vebal_percentage = 100 * voting_power / (totalveBAL / 10 ** 18)
     running_total += auraearned * vebal_percentage/100
     dilutions.append((52*100*auraearned * auralockpercentage/100)/total_vl_aura)
     aprs.append(100*52*((aura_price*auraearned+float(dfmain['Bal Released'][i]) * bal_price) * vebal_percentage/100)/supported_liquidity)
