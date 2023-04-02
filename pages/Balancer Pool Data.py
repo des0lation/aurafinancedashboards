@@ -1,5 +1,6 @@
 from main import *
 import statistics,requests, json, time
+from main import gettotalvebal, getaurabal
 
 totalveBAL = gettotalvebal()
 auraveBAL = getaurabal()
