@@ -1,6 +1,28 @@
 from main import *
 import statistics,requests, json, time
 
+
+infura_url = "https://mainnet.infura.io/v3/0159c1c270174247ab17c4839f766798"
+web3 = Web3(HTTPProvider(infura_url))
+def gettotalvebal():
+    contract_address = '0xC128a9954e6c874eA3d62ce62B468bA073093F25'
+    contract_abi = json.loads(
+        '[{"name":"Deposit","inputs":[{"name":"provider","type":"address","indexed":true},{"name":"value","type":"uint256","indexed":false},{"name":"locktime","type":"uint256","indexed":true},{"name":"type","type":"int128","indexed":false},{"name":"ts","type":"uint256","indexed":false}],"anonymous":false,"type":"event"},{"name":"Withdraw","inputs":[{"name":"provider","type":"address","indexed":true},{"name":"value","type":"uint256","indexed":false},{"name":"ts","type":"uint256","indexed":false}],"anonymous":false,"type":"event"},{"name":"Supply","inputs":[{"name":"prevSupply","type":"uint256","indexed":false},{"name":"supply","type":"uint256","indexed":false}],"anonymous":false,"type":"event"},{"stateMutability":"nonpayable","type":"constructor","inputs":[{"name":"token_addr","type":"address"},{"name":"_name","type":"string"},{"name":"_symbol","type":"string"},{"name":"_authorizer_adaptor","type":"address"}],"outputs":[]},{"stateMutability":"view","type":"function","name":"token","inputs":[],"outputs":[{"name":"","type":"address"}]},{"stateMutability":"view","type":"function","name":"name","inputs":[],"outputs":[{"name":"","type":"string"}]},{"stateMutability":"view","type":"function","name":"symbol","inputs":[],"outputs":[{"name":"","type":"string"}]},{"stateMutability":"view","type":"function","name":"decimals","inputs":[],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"admin","inputs":[],"outputs":[{"name":"","type":"address"}]},{"stateMutability":"nonpayable","type":"function","name":"commit_smart_wallet_checker","inputs":[{"name":"addr","type":"address"}],"outputs":[]},{"stateMutability":"nonpayable","type":"function","name":"apply_smart_wallet_checker","inputs":[],"outputs":[]},{"stateMutability":"view","type":"function","name":"get_last_user_slope","inputs":[{"name":"addr","type":"address"}],"outputs":[{"name":"","type":"int128"}]},{"stateMutability":"view","type":"function","name":"user_point_history__ts","inputs":[{"name":"_addr","type":"address"},{"name":"_idx","type":"uint256"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"locked__end","inputs":[{"name":"_addr","type":"address"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"nonpayable","type":"function","name":"checkpoint","inputs":[],"outputs":[]},{"stateMutability":"nonpayable","type":"function","name":"deposit_for","inputs":[{"name":"_addr","type":"address"},{"name":"_value","type":"uint256"}],"outputs":[]},{"stateMutability":"nonpayable","type":"function","name":"create_lock","inputs":[{"name":"_value","type":"uint256"},{"name":"_unlock_time","type":"uint256"}],"outputs":[]},{"stateMutability":"nonpayable","type":"function","name":"increase_amount","inputs":[{"name":"_value","type":"uint256"}],"outputs":[]},{"stateMutability":"nonpayable","type":"function","name":"increase_unlock_time","inputs":[{"name":"_unlock_time","type":"uint256"}],"outputs":[]},{"stateMutability":"nonpayable","type":"function","name":"withdraw","inputs":[],"outputs":[]},{"stateMutability":"view","type":"function","name":"balanceOf","inputs":[{"name":"addr","type":"address"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"balanceOf","inputs":[{"name":"addr","type":"address"},{"name":"_t","type":"uint256"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"balanceOfAt","inputs":[{"name":"addr","type":"address"},{"name":"_block","type":"uint256"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"totalSupply","inputs":[],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"totalSupply","inputs":[{"name":"t","type":"uint256"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"totalSupplyAt","inputs":[{"name":"_block","type":"uint256"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"supply","inputs":[],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"locked","inputs":[{"name":"arg0","type":"address"}],"outputs":[{"name":"","type":"tuple","components":[{"name":"amount","type":"int128"},{"name":"end","type":"uint256"}]}]},{"stateMutability":"view","type":"function","name":"epoch","inputs":[],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"point_history","inputs":[{"name":"arg0","type":"uint256"}],"outputs":[{"name":"","type":"tuple","components":[{"name":"bias","type":"int128"},{"name":"slope","type":"int128"},{"name":"ts","type":"uint256"},{"name":"blk","type":"uint256"}]}]},{"stateMutability":"view","type":"function","name":"user_point_history","inputs":[{"name":"arg0","type":"address"},{"name":"arg1","type":"uint256"}],"outputs":[{"name":"","type":"tuple","components":[{"name":"bias","type":"int128"},{"name":"slope","type":"int128"},{"name":"ts","type":"uint256"},{"name":"blk","type":"uint256"}]}]},{"stateMutability":"view","type":"function","name":"user_point_epoch","inputs":[{"name":"arg0","type":"address"}],"outputs":[{"name":"","type":"uint256"}]},{"stateMutability":"view","type":"function","name":"slope_changes","inputs":[{"name":"arg0","type":"uint256"}],"outputs":[{"name":"","type":"int128"}]},{"stateMutability":"view","type":"function","name":"future_smart_wallet_checker","inputs":[],"outputs":[{"name":"","type":"address"}]},{"stateMutability":"view","type":"function","name":"smart_wallet_checker","inputs":[],"outputs":[{"name":"","type":"address"}]}]')
+    contract = web3.eth.contract(address=contract_address, abi=contract_abi)
+    totalveBAL = contract.functions.totalSupply().call()
+    return totalveBAL
+
+def getaurabal():
+    contract_address_2 = '0x616e8BfA43F920657B3497DBf40D6b1A02D4608d'
+    contract_abi_2 = json.loads(
+        '[{"inputs":[{"internalType":"string","name":"_nameArg","type":"string"},{"internalType":"string","name":"_symbolArg","type":"string"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_from","type":"address"},{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"burn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_to","type":"address"},{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"mint","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"operator","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_operator","type":"address"}],"name":"setOperator","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]')
+    contract2 = web3.eth.contract(address=contract_address_2, abi=contract_abi_2)
+    auraveBAL = contract2.functions.totalSupply().call()
+    return auraveBAL
+
+
+totalveBAL = gettotalvebal()
+auraveBAL = getaurabal()
 json_data = {
     'query': 'query GaugeFactories {\r\n  gaugeFactories {\r\n    gauges {\r\n      symbol\r\n      id\r\n    }\r\n  }\r\n}',
     'variables': {},
@@ -62,6 +84,7 @@ def getlstpools(lsts):
 lst_pools = getlstpools(lsts)
 if "50wstETH-50bb-euler-USD-gauge" in lst_pools.keys():
     del lst_pools["50wstETH-50bb-euler-USD-gauge"]
+
 @st.cache_resource
 def getgaugeweight(id):
     infura_url = "https://mainnet.infura.io/v3/0159c1c270174247ab17c4839f766798"
@@ -71,14 +94,14 @@ def getgaugeweight(id):
     contract = web3.eth.contract(address=contract_address, abi=contract_abi)
     id = web3.toChecksumAddress(id)
     try:
-        result = contract.functions.gauge_relative_weight(id).call()
+        totalveBAL = contract.functions.gauge_relative_weight(id).call()
     except:
-        result = 0
-    return result
+        totalveBAL = 0
+    return totalveBAL
+
+lst_pools['B-cbETH-wstETH-Stable-gauge'] = '0x01a9502c11f411b494c62746d37e89d6f7078657'
 
 
-
-@st.cache_data
 def get_all_weights(lst_pools):
     ve_bals = []
     weights = []
@@ -89,8 +112,8 @@ def get_all_weights(lst_pools):
         time.sleep(1)
         gauge_weight = getgaugeweight(lst_pools[key])
         weights.append(int(gauge_weight)/10**18)
-        weight_values.append(round(aurabal_price/10**18*result*int(gauge_weight)/10**18,2))
-        ve_bals.append(result/10**18*int(gauge_weight)/10**18)
+        weight_values.append(round(aurabal_price/10**18*totalveBAL*int(gauge_weight)/10**18,2))
+        ve_bals.append(totalveBAL/10**18*int(gauge_weight)/10**18)
     return weights, weight_values,ve_bals
 
 
@@ -158,7 +181,7 @@ df["veBAL Weights"] = df["veBAL Weights"] * 100
 st.dataframe(df, width=None)
 
 justlstsavg = []
-extracted_lst_pools = ['B-stETH-STABLE-gauge','B-rETH-STABLE-gauge','B-ankrETH-WETH-Stable-gauge','B-staFiETH-WETH-Stable-gauge']
+extracted_lst_pools = ['B-stETH-STABLE-gauge','B-rETH-STABLE-gauge','B-ankrETH-WETH-Stable-gauge','B-staFiETH-WETH-Stable-gauge','wstETH-rETH-sfrxETH-BPT-gauge','B-cbETH-wstETH-Stable-gauge']
 for i,weight in enumerate(weights_list):
     try:
         if list(lst_pools.keys())[i] in extracted_lst_pools:
@@ -168,7 +191,7 @@ for i,weight in enumerate(weights_list):
 
 #st.write(pools_liquidity)
 #st.write("From the Pools Collect, each % of veBAL is on median generating",statistics.median(avgliqpervebal),"of liquidity")
-#st.write("So we are rougly generating $1 million of liquidity per % of veBAL we are owning which has a market value of",0.01 * aurabal_price* result/10**18)
+#st.write("So we are rougly generating $1 million of liquidity per % of veBAL we are owning which has a market value of",0.01 * aurabal_price* totalveBAL/10**18)
 st.write("Looking at just LST metastable pools",extracted_lst_pools,"we get an average of", statistics.mean(justlstsavg),"$ of liquidity per % of veBAL held by the pool")
 
 veBAL_values = list(range(0, 11))
@@ -181,15 +204,16 @@ st.empty()
 tvl = st.slider('Select a TVL', min_value=1, max_value=100000000,value = 100000000 ,step=100000,format='%.2f')
 st.empty()
 bribes = st.slider("Bribing?",min_value = 0 , max_value = 20000,step = 1000,format='%.2f')
-st.write("This would lead to a bribing expense of",bribes*52,"$ per year")
+st.write("This would lead to a bribing expense of",bribes*26,"$ per year")
+st.write("For each dollar of bribes you are getting",votes_per_dollar,"votes")
 st.empty()
 auralockpercentage = st.slider("How much of AURA minted each week is being deposited into vlAURA?",min_value = 0,max_value = 100,format='%.2f')
 st.empty()
 new_aura_investments = st.slider("How much AURA will be buy each week to combat vlAURA dilution",min_value = 0,max_value = 10000,format='%.2f')
-vl_aura_amount = (investment + bribes*votes_per_dollar)/aura_price
-voting_power = vl_aura_amount/(total_vl_aura+vl_aura_amount)*result2 / 10 ** 18
-vebal_percentage = 100*voting_power/(result / 10 ** 18)
-supported_liquidity = st.slider("Supported Liquidity", min_value = 1, max_value = tvl,step = 100000 ,value = int((vebal_percentage * statistics.mean(justlstsavg))),format='%.2f')
+vl_aura_amount = bribes*votes_per_dollar+investment/aura_price
+voting_power = vl_aura_amount/(total_vl_aura+investment/aura_price)*auraveBAL / 10 ** 18 #total amount of auraBAL controlled by vlAURA stake
+vebal_percentage = 100*voting_power/(totalveBAL / 10 ** 18)
+supported_liquidity = st.slider("Supported Liquidity", min_value = 1, max_value = tvl,step = 100000 ,value = 10000000,format='%.2f')
 tvl_ratio = str("1" + ":" + str((int(tvl) -supported_liquidity) /supported_liquidity))
 st.write('You invested:', investment, "netting you",vl_aura_amount,"vlAURA")
 st.write("This will mean you own",100*vl_aura_amount/(total_vl_aura+vl_aura_amount),"% of vlAURA, a veBAL voting power of",voting_power, "or",vebal_percentage,"%")
@@ -200,27 +224,25 @@ aprs = []
 running_total = 0
 voting_power_loss = []
 dilutions = []
-for i,auraearned in enumerate(aura_revenue):
-    total_vl_aura = total_vl_aura + auraearned * auralockpercentage/100
+auraDominance = 100 * auraveBAL / totalveBAL
+
+
+#We are using Aura Minted from Main which is the total Aura Minted for each Bal Earned by Aiura
+for i in range(0,len(dfmain['Bal Released'])):
+    total_vl_aura = total_vl_aura + auraMinted[i] * auralockpercentage/100
     vl_aura_amount = vl_aura_amount + new_aura_investments
-    voting_power = vl_aura_amount/(total_vl_aura)* result2 / 10 ** 18
-    vebal_percentage = 100 * voting_power / (result / 10 ** 18)
-    running_total += auraearned * vebal_percentage/100
-    dilutions.append((52*100*auraearned * auralockpercentage/100)/total_vl_aura)
-    aprs.append(100*52*((aura_price*auraearned+float(dfmain['Bal Released'][i]) * bal_price) * vebal_percentage/100)/supported_liquidity)
+    voting_power = vl_aura_amount/total_vl_aura* auraDominance/100 * totalveBAL / 10 ** 18 # How much
+    vebal_percentage = 100 * voting_power / (totalveBAL / 10 ** 18)
+    aura_earned_by_pool = auraMinted[i] * vl_aura_amount/total_vl_aura
+    bal_earned_by_pool = (0.75 * float(dfmain['Bal Released'][i]) * bal_price) * vebal_percentage/100
+    dilutions.append((52*100*auraMinted[i] * auralockpercentage/100)/total_vl_aura)
+    aprs.append(100*52*(aura_earned_by_pool * aura_price + bal_earned_by_pool * bal_price)/supported_liquidity)
     liq_aura_earned.append(running_total)
 
-col1, col2 = st.columns(2)
 weeks = dfmain['Weeks']
-
-with col1:
-    fig2 = px.line(x=weeks, y=liq_aura_earned, labels={'x': 'Weeks', 'y': 'Aura Earned by Liquidity Pool'})
-    fig2.update_layout(xaxis_tickangle = 60)
-    st.plotly_chart(fig2)
-with col2:
-    fig3 = px.line(x=weeks, y=aprs, labels={'x': 'Weeks', 'y': 'APR'})
-    fig3.update_layout(xaxis_tickangle = 60)
-    st.plotly_chart(fig3)
+fig3 = px.line(x=weeks, y=aprs, labels={'x': 'Weeks', 'y': 'APR'})
+fig3.update_layout(xaxis_tickangle = 60)
+st.plotly_chart(fig3)
 
 fig4 = px.line(x=weeks, y=dilutions, labels={'x': 'Weeks', 'y': 'Annualised Dilution'})
 fig4.update_layout(xaxis_tickangle = 60)
