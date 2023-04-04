@@ -151,6 +151,8 @@ for i, weight in enumerate(weights_list):
     except:
         continue
 
+st.write(pools_liquidity)
+
 df = pd.DataFrame({"Pool": lst_pools.keys(), "Address": lst_pools.values(),"veBAL Weights":weights_list,"veBAL":ve_bals, "veBAL value":weight_values,"Liquidity":pools_liquidity,"Liquidity per veBAL":liquidity_per_vebal})
 df["veBAL Weights"] = df["veBAL Weights"] * 100
 st.dataframe(df, width=None)
