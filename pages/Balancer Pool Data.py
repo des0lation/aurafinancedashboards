@@ -51,6 +51,8 @@ def getvlaura():
     return vlaurabal
 
 total_vl_aura = getvlaura()
+st.write('The total vlAURA amount is',total_vl_aura)
+        )
 
 #Here I am declaring all the LST POOLs
 
